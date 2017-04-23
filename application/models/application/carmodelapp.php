@@ -8,6 +8,10 @@ class carmodelapp extends CI_Model {
 		$data = $this->db
 		->where('car_user_id',$id['user_id'])
 		->where('car_disable',0)
+		->join('province','province.province_id = car.car_province','left')
+		->join('car_brand','car_brand.car_brand_id = car.car_brand_id','left')
+	  ->join('car_model','car_model.car_model_id = car.car_model_id','left')
+		->join('car_brand_year','car_brand_year.car_brand_year_id = car.car_year','left')
 		->order_by('car_id','DESC')
 		->get('car')
 		->result();
@@ -20,6 +24,10 @@ class carmodelapp extends CI_Model {
 		->where('car_license_plate',$id['car_license_plate'])
 		->where('car_province',$id['car_province'])
 		->where('car_disable',0)
+		->join('province','province.province_id = car.car_province','left')
+		->join('car_brand','car_brand.car_brand_id = car.car_brand_id','left')
+	  ->join('car_model','car_model.car_model_id = car.car_model_id','left')
+		->join('car_brand_year','car_brand_year.car_brand_year_id = car.car_year','left')
 		->order_by('car_id','DESC')
 		->get('car')
 		->result();
@@ -52,6 +60,7 @@ class carmodelapp extends CI_Model {
 		->join('province','province.province_id = car.car_province','left')
 		->join('car_brand','car_brand.car_brand_id = car.car_brand_id','left')
 	  ->join('car_model','car_model.car_model_id = car.car_model_id','left')
+		->join('car_brand_year','car_brand_year.car_brand_year_id = car.car_year','left')
 		->get('car')
 		->result();
 		return $data;
