@@ -1,0 +1,20 @@
+/*.navbar .navbar-nav > .active > a, .navbar .navbar-nav > .active > a:hover, .navbar .navbar-nav > .active > a:focus {
+    color: inherit;
+    background-color: #333;
+}*/
+body {
+    /*font-family: 'THSarabunNew';*/
+    background-color: #333;
+    /*padding-top: 70px;*/
+}
+h1, h2, h3, h4, h5, h6 {
+    /*font-family: 'THSarabunNew';*/
+
+}
+select.input-sm {
+    height: 100% !important;
+    line-height: 30px;
+}
+.card .card-header {
+    background-color: #3a3a3a;
+}
