@@ -42,18 +42,25 @@ class usermodelapp extends CI_Model {
 		return $data;
 	}
 
-	public function updatePassword($id,$input)
-	{
-		$this->db->where('user_id', $id);
-		$this->db->update('user',$input);
-	}
+	// public function updatePassword($id,$input)
+	// {
+	// 	$this->db->where('user_id', $id);
+	// 	$this->db->update('user',$input);
+	// }
+	//
+	// public function userUpdatePhoto($id,$input)
+	// {
+	// 	$this->db->where('user_id', $id);
+	// 	$this->db->update('user',$input);
+	// }
+
 
 	public function forgotPassword($input)
 	{
 		$data = $this->db
 		->where('user_email', $input)
 		->get('user')
-		->result_array();
+		->result();
 		return $data;
 	}
 

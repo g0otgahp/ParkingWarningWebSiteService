@@ -30,10 +30,24 @@ class car_service extends REST_Controller
     $this->response($myCar, 200); // 200 being the HTTP response code
   }
 
+  function searchCar_post()
+  {
+    $id = $this->post();
+		$myCar = $this->carmodelapp->searchCar($id);
+    $this->response($myCar, 200); // 200 being the HTTP response code
+  }
+
+  function maxCar_post()
+  {
+    $id = $this->post();
+		$myCar = $this->carmodelapp->maxCarId($id);
+    $this->response($myCar, 200); // 200 being the HTTP response code
+  }
+
   function carDetail_post()
   {
     $id = $this->post();
-		$myCar = $this->carmodelapp->myCar($id);
+		$myCar = $this->carmodelapp->carDetail($id);
     $this->response($myCar, 200); // 200 being the HTTP response code
   }
 
@@ -61,15 +75,53 @@ class car_service extends REST_Controller
     $this->response($data, 200); // 200 being the HTTP response code
   }
 
+  function carWarning_post()
+  {
+    $data = $this->carmodelapp->carWarning();
+    $this->response($data, 200); // 200 being the HTTP response code
+  }
+
+
+  function carAddWarning_post()
+  {
+    $data = $this->post();
+    $dt = new DateTime();
+    $data['notification_date'] = $dt->format('Y-m-d H:i:s');
+    $myCar = $this->carmodelapp->carAddWarning($data);
+    $this->response($myCar, 200); // 200 being the HTTP response code
+  }
+
+  function carMyWarning_post()
+  {
+    $data = $this->post();
+    $data = $this->carmodelapp->carMyWarning($data);
+    $this->response($data, 200); // 200 being the HTTP response code
+  }
+
+  function carBrandYear_post()
+  {
+    $input = $this->post();
+    $data = $this->carmodelapp->carBrandYear($input);
+    $this->response($data, 200); // 200 being the HTTP response code
+  }
+
   function carModel_post()
   {
-    $data = $this->carmodelapp->carModel();
+    $input = $this->post();
+    $data = $this->carmodelapp->carModel($input);
     $this->response($data, 200); // 200 being the HTTP response code
   }
 
   function carProvince_post()
   {
     $data = $this->carmodelapp->carProvince();
+    $this->response($data, 200); // 200 being the HTTP response code
+  }
+
+  function carDisable_post()
+  {
+    $input = $this->post();
+    $data = $this->carmodelapp->carDisable($input);
     $this->response($data, 200); // 200 being the HTTP response code
   }
 }

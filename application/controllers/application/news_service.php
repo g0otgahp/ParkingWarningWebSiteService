@@ -33,9 +33,11 @@ class news_service extends REST_Controller
   function myNews_post()
   {
     $id = $this->post();
+    // $id['user_id'] = '7';
 		$news = $this->newsmodelapp->myNews($id);
     $this->response($news, 200); // 200 being the HTTP response code
   }
+
   function myNewsDetail_post()
   {
     $id = $this->post();

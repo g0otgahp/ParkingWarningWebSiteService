@@ -124,6 +124,7 @@ $autoload['model'] = array(
   'application/emergencymodelapp',
   'application/membermodelapp',
   'application/usermodelapp',
+  'application/newsmodelapp',
 );
 
 
