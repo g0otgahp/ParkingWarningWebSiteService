@@ -13,7 +13,8 @@ class usermodelapp extends CI_Model {
 		unset($data[0]->user_password);
 		return $data;
 	}
-	public function ChackRegis($input)
+
+	public function CheckRegis($input)
 	{
 		$data = $this->db
 		->where('user_email', $input['user_email'])
@@ -21,15 +22,18 @@ class usermodelapp extends CI_Model {
 		->result();
 		return $data;
 	}
+
 	public function Register($input)
 	{
 		$this->db->insert('user', $input);
+		return $this->db->affected_rows();
 	}
 
 	public function updateUser($id,$input)
 	{
 		$this->db->where('user_id', $id);
 		$this->db->update('user',$input);
+		return $this->db->affected_rows();
 	}
 
 	public function checkUser($input)
@@ -52,13 +56,16 @@ class usermodelapp extends CI_Model {
 	}
 	public function activeUser($input)
 	{
-		$update['user_active']=1;
-		$data = $this->db
-		->where('user_username', $input['user_username'])
-		->where('user_active_code', $input['user_active_code'])
-		->update('user',$update);
-	}
+		$activeCode = $input['user_active_code'];
 
+		$input['user_active_code']=null;
+		$input['user_active']=1;
+
+		$data = $this->db
+		->where('user_active_code', $activeCode)
+		->update('user',$input);
+		return $this->db->affected_rows();
+	}
 
 	public function selectUser($input)
 	{
@@ -84,11 +91,11 @@ class usermodelapp extends CI_Model {
 
 	public function forgotPassword($input)
 	{
-		$data = $this->db
-		->where('user_email', $input)
-		->get('user')
-		->result();
-		return $data;
+		// $data = $this->db
+		// ->where('user_email', $input)
+		// ->get('user')
+		// ->result();
+		// return $data;
 	}
 
 

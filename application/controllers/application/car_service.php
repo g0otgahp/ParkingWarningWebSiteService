@@ -75,6 +75,13 @@ class car_service extends REST_Controller
     $this->response($data, 200); // 200 being the HTTP response code
   }
 
+  function carColor_post()
+  {
+    $data = $this->carmodelapp->carColor();
+    $this->response($data, 200); // 200 being the HTTP response code
+  }
+
+
   function carWarning_post()
   {
     $data = $this->carmodelapp->carWarning();
@@ -93,8 +100,8 @@ class car_service extends REST_Controller
 
   function carMyWarning_post()
   {
-    $data = $this->post();
-    $data = $this->carmodelapp->carMyWarning($data);
+    $input = $this->post();
+    $data = $this->carmodelapp->carMyWarning($input);
     $this->response($data, 200); // 200 being the HTTP response code
   }
 

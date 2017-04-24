@@ -32,9 +32,7 @@ class user_service extends REST_Controller
   function CheckRegis_post()
   {
     $input = $this->post();
-
-    $user = $this->usermodelapp->ChackRegis($input);
-    // print_r($user);
+    $user = $this->usermodelapp->CheckRegis($input);
     $this->response($user, 200); // 200 being the HTTP response code
   }
 
@@ -45,11 +43,13 @@ class user_service extends REST_Controller
     $dt = new DateTime();
 
 		$input['user_register_date'] = $dt->format('Y-m-d H:i:s');
-    $input['user_active_code']  = randomPassword();
+    $input['user_active_code']  = $this->randomPassword();
 
     $user = $this->usermodelapp->Register($input);
-    // print_r($user);
-    sendMailActiveUser($input);
+
+    if(count($user)>0){
+      $this->sendMail($input,'','activeUser');
+    }
     $this->response($user, 200); // 200 being the HTTP response code
   }
 
@@ -104,78 +104,60 @@ function forgotPassword_post()
 {
   $input = $this->post();
 
-  $user = $this->usermodelapp->forgotPassword($input);
+  $newpass = $this->randomPassword();
 
-  $newpass = randomPassword();
+  $inputPass['user_password'] = md5($newpass);
 
-  $value = array(
-    'user_password' => md5($newpass)
-  );
+  $user = $this->usermodelapp->updateUser($input['user_id'],$inputPass);
 
-
-  $this->usermodelapp->updateUser($user[0]->user_id,$value);
-
-  if(count($user)){
-    sendNewPassword($user[0]->user_email,$newpass);
+  if($user>0){
+    $this->sendMail($input,$newpass,'forgotPassword');
+    $user = $this->usermodelapp->selectUser($input['user_id']);
   }
 
   $this->response($user, 200); // 200 being the HTTP response code
 }
 
-function sendMailActiveUser($input){
-
-  // $strTo = $email;
-	// $strSubject = "=?UTF-8?B?".base64_encode("รหัสผ่านใหม่สำหรับบัญชี ParkingWarning")."?=";
-	// $strHeader .= "MIME-Version: 1.0' . \r\n";
-	// $strHeader .= "Content-type: text/html; charset=utf-8\r\n";
-	// $strHeader .= "From: ParkingWarning<wichetpong159@hotmail.com.com>\r\nReply-To: wichetpong159@hotmail.com.com";
-	// $strVar = "ข้อความภาษาไทย";
-	// $strMessage = "
-	// <h5>ParkingWarning</h5><br>
-  // รหัสผ่านใหม่ของท่านคือ<br>".$newpass;
-  //
-  // @mail($strTo,$strSubject,$strMessage,$strHeader);
-
-
-
-	// $flgSend = @mail($strTo,$strSubject,$strMessage,$strHeader);  // @ = No Show Error //
-	// if($flgSend)
-	// {
-	// 	echo "Email Sending.";
-	// }
-	// else
-	// {
-	// 	echo "Email Can Not Send.";
-	// }
-
+function sendMail($input,$newpass,$type){
   $this->load->library('email');
-  //config
-  // $config['protocol'] = 'sendmail';
-  // $config['mailpath'] = '/usr/sbin/sendmail';
-  // $config['charset'] = 'iso-8859-1';
-  // $config['wordwrap'] = TRUE;
-  //
-  // $this->email->initialize($config);
-  //config
+  $this->email->initialize(array(
+    'protocol' => 'smtp',
+    'smtp_host' => 'mail.parkingwarning.com',
+    'smtp_user' => 'support@parkingwarning.com',
+    'smtp_pass' => '1q2w3e4r5t',
+    'smtp_port' => 587,
+    'crlf' => "\r\n",
+    'newline' => "\r\n",
+    'mailtype' => "html",
+    'charset' => "utf-8"
+  ));
 
-  $this->email->from('wichetpong159@hotmail.com', 'ParkingWarning');
-  $this->email->to($input['user_email']); //ส่งถึงใคร
-  $this->email->cc('wichetpong159@hotmail.com'); //cc ใคร
-  $this->email->bcc('wichetpong159@hotmail.com'); //bcc ใคร
-
-  $this->email->subject('รหัสผ่านใหม่ของบัญชี ParkingWarning'); //หัวข้อของอีเมล
-  $this->email->message('
-	<h5>ParkingWarning</h5><br>
-  ยืนยันตัวตน <br>'.site_url().'application/user_service/activeUser/'.$input['user_active_code']); //เนื้อหาของอีเมล
+  $this->email->from('support@parkingwarning.com', 'ParkingWarning');
+  $this->email->to($input['user_email']);
+  // $this->email->cc($input['user_email']);
+  // $this->email->bcc($input['user_email']);
+  if(strcmp($type,"forgotPassword")==0){
+    $this->email->subject('Forgot Password่ ParkingWarning');
+    $this->email->message('สวัสดีค่ะคุณ '.$input['user_fullname'].'<br><br><br>ตามที่คุณแจ้ง "ขอรหัสผ่านใหม่"<br>รหัสผ่านใหม่ของคุณคือ : '.$newpass.' <br><br><br>ขอบคุณที่ใช้บริการ ParkingWarning <br>ทีมงาน ParkingWarning');
+  }else if(strcmp($type,"activeUser")==0){
+    $this->email->subject('Active User ParkingWarning');
+    $this->email->message('สวัสดีค่ะคุณ '.$input['user_fullname'].'<br><br><br>กรุณากคลิกลิงค์ยืนยันตัวตนด้านล่างเพื่อนทำการยืนยันการสมัครสมาชิก<br><a href="'.site_url().'application/user_service/activeUser/'.$input['user_active_code'].'">ยืนยันตัวตน</a> <br><br><br>ขอบคุณที่ใช้บริการ ParkingWarning <br>ทีมงาน ParkingWarning');
+  }
 
   $this->email->send();
-
+  // echo $this->email->print_debugger();
 }
 
-function activeUser(){
-  $input['user_active_code'] = $this->uri->segment(3);
-  $input['user_username'] = $this->uri->segment(4);
-  $this->usermodelapp->activeUser($input);
+function activeUser_get(){
+  $input['user_active_code'] = $this->uri->segment(4);
+  $query = $this->usermodelapp->activeUser($input);
+  if($query>0){
+    $message = "ยืนยันตัวตนสำเร็จ ".$input['user_active_code'];
+    echo "<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'><script type='text/javascript'>alert('$message');</script>";
+  }else{
+    $message = "เกิดข้อผิดพลาดในการยืนยันตัวตน ".$input['user_active_code'];
+    echo "<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'><script type='text/javascript'>alert('$message');</script>";
+  }
 }
 
 function randomPassword($length = 8) {

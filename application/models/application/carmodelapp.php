@@ -75,6 +75,16 @@ class carmodelapp extends CI_Model {
 		return $data;
 	}
 
+	public function carColor()
+	{
+		$data = $this->db
+		->order_by('car_color_name','ASC')
+		->get('car_color')
+		->result();
+		return $data;
+	}
+
+
 	public function carBrandYear($input)
 	{
 		$data = $this->db
