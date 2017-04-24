@@ -40,6 +40,39 @@ class car extends CI_Controller {
 		);
 		$this->LoadPage($value);
 	}
+
+	function car_brand()
+	{
+		 $value = array(
+			'Result' => array(
+				'NgController' => "CarBrandController",
+			),
+			'View' => 'admin/car/car_brand_list',
+		);
+		$this->LoadPage($value);
+	}
+
+	function car_brand_form()
+	{
+		 $value = array(
+			'Result' => array(
+				'NgController' => "CarBrandFormController",
+			),
+			'View' => 'admin/car/car_brand_form',
+		);
+		$this->LoadPage($value);
+	}
+
+	function car_brand_detail()
+	{
+		 $value = array(
+			'Result' => array(
+				'NgController' => "CarBrandDetailController",
+			),
+			'View' => 'admin/car/car_brand_detail',
+		);
+		$this->LoadPage($value);
+	}
 }
 
 /* End of file welcome.php */

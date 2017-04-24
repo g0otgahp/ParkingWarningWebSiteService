@@ -2,7 +2,7 @@ app.controller('DashboardController',
 function ($http, $scope, $location, DTOptionsBuilder, DTColumnBuilder, DTColumnDefBuilder) {
 
 
-	$http.get(SITE_URL + 'admin/Dashboard_service/Dashboard').then(function (response){
+	$http.get(SITE_URL + 'admin/dashboard_service/Dashboard').then(function (response){
 		appNotify(response.data.alert.message, response.data.alert.type);
 		$scope.notification = response.data.notification;
 		$scope.car = response.data.car;
@@ -14,7 +14,7 @@ function ($http, $scope, $location, DTOptionsBuilder, DTColumnBuilder, DTColumnD
 
 		$scope.labels = response.data.chart.labels;
 		$scope.data = response.data.chart.notification;
-		// 
+		//
 		// console.log($scope.labels);
 		// console.log($scope.data);
 		//

@@ -21,7 +21,7 @@
           <tbody>
             <tr ng-repeat="row in dt_notification">
               <td>{{$index+1}}</td>
-              <td>{{row.notification_date}}</td>
+              <td>{{row.notification_date | amDateFormat:"DD MMMM YYYY HH:MMน."}}</td>
               <td>
                 <a href="#" ng-click="member_detail(row.user_id,row.car_id)">
                   {{row.car_license_plate}}

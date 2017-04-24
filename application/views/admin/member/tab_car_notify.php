@@ -13,7 +13,7 @@
       <tbody>
         <tr ng-repeat="row in car_not">
           <td>{{$index+1}}</td>
-          <td>{{row.notification_date}}</td>
+          <td>{{row.notification_date | amDateFormat:"DD MMMM YY HH:MMน."}}</td>
           <td>{{row.user_fullname}}</td>
           <!-- <td>{{row.notification_status}}</td> -->
     </tr>

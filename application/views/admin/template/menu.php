@@ -48,7 +48,12 @@
         <p>รถยนต์</p>
       </a>
     </li>
-
+    <li>
+      <a href="<?php echo site_url('admin/car/car_brand');?>">
+        <i class="material-icons">book</i>
+        <p>การจัดการยี่ห้อรถ</p>
+      </a>
+    </li>
     <li class="active-pro">
       <a href="<?php echo site_url('admin/emergency');?>">
         <i class="material-icons">unarchive</i>

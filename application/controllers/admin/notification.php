@@ -18,7 +18,7 @@ class notification extends CI_Controller {
 
 	function index()
 	{
-		@session_start();
+		session_start();
 		if ($_SESSION['ADMIN']!="") {
 		 $value = array(
 			'Result' => array(

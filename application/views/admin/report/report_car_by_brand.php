@@ -9,6 +9,7 @@
       <table datatable="ng" dt-options="dtOptions" dt-instance="dtInstance"  class="table table-striped table-hover ">
         <thead>
           <tr class="info">
+            <th>โลโก้</th>
             <th>ยี่ห้อ</th>
             <th>จำนวน (คัน)</th>
           </tr>
@@ -16,6 +17,7 @@
         <tbody>
           <tr ng-repeat="row in dt_report_brand" ng-if="row.num != 0" class="animate-if">
             <span ng-if="{{row.num}} != 0">
+            <td width="50"><img src="<?php echo base_url('upload/images/brand')?>/{{row.car_brand_pic}}" class="img-thumbnail"></td>
             <td>{{row.car_brand_name}}</td>
             <td>{{row.num}}</td>
           </span>

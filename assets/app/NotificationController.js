@@ -4,6 +4,7 @@ function($http, $scope, DTOptionsBuilder, DTColumnDefBuilder, $window) {
   $http.get(SITE_URL + 'admin/notification_service/notification_all').then( function (response) {
     appNotify(response.data.alert.message, response.data.alert.type);
     $scope.dt_notification = response.data.car_noti;
+    console.log($scope.dt_notification);
   }, function(error) {
     console.log(error);
   }

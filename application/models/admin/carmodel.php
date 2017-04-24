@@ -72,6 +72,16 @@ class carmodel extends CI_Model {
 	{
 		$data = $this->db
 		->order_by('car_brand_id', 'ASC')
+		->where('car_brand_status', 1)
+		->get('car_brand')->result();
+		return $data;
+	}
+
+	public function all_brand_trash_select()
+	{
+		$data = $this->db
+		->order_by('car_brand_id', 'ASC')
+		->where('car_brand_status', 0)
 		->get('car_brand')->result();
 		return $data;
 	}
@@ -128,4 +138,39 @@ class carmodel extends CI_Model {
 	return $car;
 }
 
+public function car_to_trash($id)
+{
+	$input = array('car_brand_status' => 0 );
+	$this->db
+	->where('car_brand_id',$id)
+	->update('car_brand',$input);
+}
+
+public function car_restore($id)
+{
+	$input = array('car_brand_status' => 1 );
+	$this->db
+	->where('car_brand_id',$id)
+	->update('car_brand',$input);
+}
+
+public function car_brand_by_id($id)
+{
+	$data = $this->db
+	->where('car_brand_id', $id)
+	->get('car_brand')
+	->result();
+	return $data;
+}
+
+public function edit_car_brand($input)
+{
+	$this->db->where('car_brand_id',$input['car_brand_id'])
+	->update('car_brand',$input);
+}
+
+public function save_car_brand($input)
+{
+	$this->db->insert('car_brand',$input);
+}
 }

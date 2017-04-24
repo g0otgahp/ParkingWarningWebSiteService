@@ -6,7 +6,7 @@
         <h3 class="title">แบบฟอร์มข่าวสาร</h3>
         <form name="Form1" ng-submit="news_save()">
           <button type="submit" class="btn btn-success">บันทึก</button>
-          <a href="<?php echo site_url('/admin/news/'); ?>" class="btn btn-danger">ยกเลิก</a>
+          <a href="<?php echo site_url('admin/news/'); ?>" class="btn btn-danger">ยกเลิก</a>
         </div>
         <div class="card-content">
           <div class="row">

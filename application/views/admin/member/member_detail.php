@@ -29,10 +29,10 @@
 					<div class="card-content">
 						<div class="tab-content">
 							<div class="tab-pane active" id="car_detail">
-								<?php $this->load->view('admin\member\tab_car_detail'); ?>
+								<?php $this->load->view('admin/member/tab_car_detail'); ?>
 							</div>
 							<div class="tab-pane" id="car_nortify">
-								<?php $this->load->view('admin\member\tab_car_notify'); ?>
+								<?php $this->load->view('admin/member/tab_car_notify'); ?>
 							</div>
 						</div>
 					</div>

@@ -31,6 +31,7 @@ class news extends CI_Controller {
 		redirect('admin/homepage');
 	}
 	}
+
 	function news_form()
 	{
 		 $value = array(

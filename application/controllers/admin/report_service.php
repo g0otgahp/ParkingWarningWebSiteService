@@ -23,7 +23,13 @@ class report_service extends REST_Controller {
 	{
 		$find = $this->post();
 		$car = $this->reportmodel->report_notification($find);
-		$alert = array('message' => 'โหลดรายการสำเร็จ', 'type' => 'success');
+
+		if (count($car) ==0) {
+			$alert = array('message' => 'ไม่พบรายการจ้งเตือน', 'type' => 'warning');
+		} else {
+			$alert = array('message' => 'โหลดรายการสำเร็จ', 'type' => 'success');
+		}
+
 		$this->response(array(
 					'alert' => $alert,
 					'car_noti' => $car,
@@ -34,7 +40,13 @@ class report_service extends REST_Controller {
 	{
 		$find = $this->post();
 		$car = $this->reportmodel->report_car_by_user($find);
-		$alert = array('message' => 'โหลดรายการสำเร็จ', 'type' => 'success');
+
+		if (count($car) ==0) {
+			$alert = array('message' => 'ไม่พบรายการจ้งเตือน', 'type' => 'warning');
+		} else {
+			$alert = array('message' => 'โหลดรายการสำเร็จ', 'type' => 'success');
+		}
+
 		$this->response(array(
 					'alert' => $alert,
 					'car_by_user' => $car,
@@ -44,8 +56,14 @@ class report_service extends REST_Controller {
 	public function report_brand_get()
 	{
 		$car = $this->reportmodel->report_car_by_brand();
-		$alert = array('message' => 'โหลดรายการสำเร็จ', 'type' => 'success');
-		$this->response(array(
+
+		if (count($car) ==0) {
+			$alert = array('message' => 'ไม่พบรายการจ้งเตือน', 'type' => 'warning');
+		} else {
+			$alert = array('message' => 'โหลดรายการสำเร็จ', 'type' => 'success');
+		}
+
+				$this->response(array(
 					'alert' => $alert,
 					'car_by_brand' => $car,
 					) , 200); // 200 being the HTTP response code

@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-require APPPATH.'/libraries/REST_Controller.php';
+require APPPATH.'libraries/REST_Controller.php';
 
 
 class notification_service extends REST_Controller
@@ -17,7 +17,12 @@ class notification_service extends REST_Controller
     function notification_all_get()
   	{
       $car = $this->notificationmodel->notification_all();
-      $alert = array('message' => 'โหลดรายการแจ้งเตือนสำเร็จ', 'type' => 'success');
+      if (empty($car)) {
+        $alert = array('message' => 'ไม่พบรายการจ้งเตือน', 'type' => 'warning');
+      } else {
+        $alert = array('message' => 'โหลดรายการแจ้งเตือนสำเร็จ', 'type' => 'success');
+      }
+
   		$this->response(array(
             'alert' => $alert,
   		      'car_noti' => $car,
