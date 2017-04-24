@@ -19,7 +19,7 @@ $scope.emergency_save = function(data){
 	data = $scope.emergency;
 	console.log($scope.emergency);
 	$http.post(SITE_URL + 'admin/emergency_service/emergency_save', data).then(function (response){
-	$window.location.href = SITE_URL + '/admin/emergency/';
+	$window.location.href = SITE_URL + 'admin/emergency/';
 	console.log("Success")
 	},function (error){
 		console.log("Fail");

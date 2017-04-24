@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>ParkingWarning : Login</title>
   <!-- <link rel="icon" type="image/png" href="<?php //echo base_url('/asset/img/favicon.ico')?>"> -->
-  <link rel="stylesheet" href="css/normalize.css">
+  <!-- <link rel="stylesheet" href="css/normalize.css"> -->
 
   <style>
   /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
@@ -81,8 +81,8 @@
       <?php echo form_close(); ?>
     </div>
 
-    <script src="js/index.js"></script>
-    <script src="js/prefixfree.min.js"></script>
+    <!-- <script src="js/index.js"></script>
+    <script src="js/prefixfree.min.js"></script> -->
 
   </body>
   </html>
