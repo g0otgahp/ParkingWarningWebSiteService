@@ -43,12 +43,89 @@ class car_service extends REST_Controller
   	{
   		$find = $this->post();
       $car = $this->carmodel->find_car($find);
-      $get_car = json_decode(json_encode($car), true);
       $alert = array('message' => 'โหลดรายการรถยนต์สำเร็จ', 'type' => 'success');
 
   		$this->response(array(
             'alert' => $alert,
-  		      'car' => $get_car,
+  		      'car' => $car,
   		     	) , 200); // 200 being the HTTP response code
   	}
+
+    function find_car_brand_get()
+    {
+      $car = $this->carmodel->all_brand_select();
+      $count = count($car);
+      $car_brand_trash = $this->carmodel->all_brand_trash_select();
+      $trash = count($car_brand_trash);
+      $alert = array('message' => 'โหลดรายการยี่ห้อสำเร็จ', 'type' => 'success');
+
+      $this->response(array(
+            'alert' => $alert,
+            'car' => $car,
+            'count' => $count,
+            'car_brand_trash' => $car_brand_trash,
+            'trash' => $trash
+            ) , 200); // 200 being the HTTP response code
+    }
+
+    function car_brand_totrash_post()
+    {
+      $input = $this->post();
+      $this->carmodel->car_to_trash($input['car_brand_id']);
+
+      $car = $this->carmodel->all_brand_select();
+      $count = count($car);
+      $car_brand_trash = $this->carmodel->all_brand_trash_select();
+      $trash = count($car_brand_trash);
+      $alert = array('message' => 'ย้ายไปถังขยะแล้ว', 'type' => 'warning');
+
+      $this->response(array(
+        'alert' => $alert,
+        'car' => $car,
+        'count' => $count,
+        'car_brand_trash' => $car_brand_trash,
+        'trash' => $trash
+       ) , 200); // 200 being the HTTP response code
+    }
+
+    function car_brand_restore_post()
+    {
+      $input = $this->post();
+      $this->carmodel->car_restore($input['car_brand_id']);
+
+      $car = $this->carmodel->all_brand_select();
+      $count = count($car);
+      $car_brand_trash = $this->carmodel->all_brand_trash_select();
+      $trash = count($car_brand_trash);
+      $alert = array('message' => 'กู้คืนสำเร็จ', 'type' => 'warning');
+
+
+      $this->response(array(
+        'alert' => $alert,
+        'car' => $car,
+        'count' => $count,
+        'car_brand_trash' => $car_brand_trash,
+        'trash' => $trash
+       ) , 200); // 200 being the HTTP response code
+    }
+
+    function car_brand_by_id_post()
+    {
+      $input = $this->post();
+      if ($input['car_brand_id']!='undefined') {
+        $car_brand = $this->carmodel->car_brand_by_id($input['car_brand_id']);
+        $this->response(array('car_brand' => $car_brand) , 200); // 200 being the HTTP response code
+      }
+      $this->response(array('car_brand' => 0) , 200); // 200 being the HTTP response code
+    }
+
+    function car_brand_save_post()
+    {
+      $input = $this->post();
+      if (isset($input['car_brand_id'])) {
+        $this->carmodel->edit_car_brand($input);
+      } else {
+        $this->carmodel->save_car_brand($input);
+      }
+    }
 }
