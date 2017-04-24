@@ -22,6 +22,7 @@ class dashboard_service extends REST_Controller
     $notification = $this->dashboardmodel->Dashboard_notification();
     $user = $this->dashboardmodel->Dashboard_user();
     $car = $this->dashboardmodel->Dashboard_car();
+    $chart = $this->dashboardmodel->chart_month_order();
 
 
     $alert = array('message' => 'โหลดข้อมูลภาพรวมสำเร็จ', 'type' => 'success');
@@ -32,6 +33,17 @@ class dashboard_service extends REST_Controller
           'notification' => $notification,
           'user' => $user,
           'car' => $car,
+          'chart' => $chart
           ) , 200); // 200 being the HTTP response code
   }
+
+  // function dashboard_chart_get() {
+  //
+  //   $chart = $this->dashboardmodel->chart_month_order();
+  //
+  //   $data = array(
+  //     'chart' => $chart
+  //   );
+  //   $this->response($data, 200); // 200 being the HTTP response code
+  // }
 }

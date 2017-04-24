@@ -38,6 +38,26 @@ var app = angular.module(
     'selectize',
     'froala',
     'ur.file',
-    'ngUpload'
+    'ngUpload',
+    'chart.js'
+
   ]
 );
+app.filter('bdate', function($filter)
+{
+  return function(input)
+  {
+    if(input == null){ return ""; }
+    var bYears=544;
+    //Please write the formula for getting the buddhist date here
+    //Below is a rough conversion of adding 365*bYears days to todays date
+
+    // Convert 'days' to milliseconds
+    var millies = 1000 * 60 * 60 * 24 * 365 * bYears;
+    var d = new Date(input).getTime()+millies;
+    var _date = $filter('date')(new Date(d), 'dd MMMM yyyy');
+
+    return _date.toUpperCase();
+
+  };
+});

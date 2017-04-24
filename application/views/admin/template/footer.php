@@ -27,7 +27,8 @@ $(window).on('load', function(){
 <script src="<?php echo base_url('plugin/chartjs\Chart.min.js')?>"></script>
 
 <script src="<?php echo base_url('plugin/jquery-sparkline/jquery.sparkline.js')?>"></script>
-
+<script src="<?php echo base_url('plugin\node_modules\chart.js\dist\Chart.min.js'); ?>"></script>
+<script src="<?php echo base_url('plugin\node_modules\angular-chart.js\dist\angular-chart.min.js'); ?>"></script>
 
 <!-- bootstrap -->
 <script src="<?php echo base_url('plugin/bootstrap/dist/js/bootstrap.min.js'); ?>"></script>
@@ -61,7 +62,6 @@ $(window).on('load', function(){
 <script src="<?php echo base_url('plugin/froala-angular/froala-editor/js/plugins/')?>/save.min.js"></script>
 <script src="<?php echo base_url('plugin/froala-angular/froala-editor/js/plugins/')?>/table.min.js"></script>
 <script src="<?php echo base_url('plugin/froala-angular/froala-editor/js/plugins/')?>/url.min.js"></script>
-
 
 
 <script src="<?php echo base_url('assets\bootstrap\dist\js\bootstrap.js')?>"></script>
@@ -114,7 +114,7 @@ var thisURL = '<?php echo site_url()."/".$this->uri->segment(1)."/".$this->uri->
 console.log(thisURL);
 
 </script>
-<script src="<?php echo base_url('webapp/app.js'); ?>"></script>
+<script src="<?php echo base_url('webapp\app.js'); ?>"></script>
 <script src="<?php echo base_url('assets/app/'.$Result['NgController'].".js")?>"></script>
 <script>
 
@@ -135,10 +135,10 @@ $(function(){
     toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'indent', 'outdent', 'insertImage', 'insertLink', 'undo', 'redo'],
     height: 400,
     language: 'th',
-    preloaderSrc: BASE_URL + "/assets/custom/images/loading-yellow.gif",
-    imageManagerLoadURL: SITE_URL + '/admin/helper_service/img_manager_load',
-    imageManagerDeleteURL: SITE_URL + '/admin/helper_service/img_delete',
-    imageUploadURL: SITE_URL + '/admin/helper_service/img_upload',
+    preloaderSrc: BASE_URL + "assets/custom/images/loading-yellow.gif",
+    imageManagerLoadURL: SITE_URL + 'admin/helper_service/img_manager_load',
+    imageManagerDeleteURL: SITE_URL + 'admin/helper_service/img_delete',
+    imageUploadURL: SITE_URL + 'admin/helper_service/img_upload',
   });
   imageEditButtons: ['imageDisplay', 'imageAlign', 'imageInfo', 'imageRemove']
 });

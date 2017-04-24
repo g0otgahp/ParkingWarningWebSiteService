@@ -61,8 +61,7 @@ var app = angular.module('mainApp', [
   'ngUpload',
   'angularMoment',
   'moment-picker',
-  'angular-barcode',
-  'angularModalService'
+  'chart.js'
 ]);
 SITE_URL + 'admin/helper/img_upload'
 app.run(function($rootScope, $location, $window) {

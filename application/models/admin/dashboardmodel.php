@@ -5,11 +5,18 @@ class dashboardmodel extends CI_Model {
 
 	public function Dashboard_count()
 	{
+		$datenow = date('Y-m-d')."%";
 		$data = array();
 		$data['notification'] = $this->db->get('notification')->num_rows();
 		$data['car'] = $this->db->get('car')->num_rows();
 		$data['news'] = $this->db->get('news')->num_rows();
 		$data['user'] = $this->db->get('user')->num_rows();
+
+		$data['notification_today'] = $this->db->where('notification_date like',$datenow)->get('notification')->num_rows();
+		$data['car_today'] = $this->db->where('car_register_date like',$datenow)->get('car')->num_rows();
+		$data['news_today'] = $this->db->where('news_date_add like',$datenow)->get('news')->num_rows();
+		$data['user_today'] = $this->db->where('user_register_date like',$datenow)->get('user')->num_rows();
+
 		return $data;
 	}
 
@@ -64,4 +71,35 @@ class dashboardmodel extends CI_Model {
 		->get('car',5)->result();
 		return $data;
 	}
+
+
+
+	public function chart_month_order()
+{
+	$notification = array();
+	$labels = array();
+	$day = 1;
+
+	for ($i=0; $i < date('t'); $i++) {
+		array_push($labels, $day);
+
+		$query = $this->db
+		->where('month(notification_date)', date('m'))
+		->where('year(notification_date)', date('Y'))
+		->where('day(notification_date)', $day)
+		->get('notification')
+		->num_rows();
+
+		// $sum = $this->count_order($so);
+		array_push($notification, $query);
+
+		$day++;
+	}
+	$result = array(
+		'maxDays'=>date('t'),
+		'labels'=>$labels,
+		'notification'=>$notification
+	);
+	return $result;
+}
 }

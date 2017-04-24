@@ -5,14 +5,14 @@
         <i class="material-icons">notifications</i>
       </div>
       <div class="card-content">
-        <p class="category">การแจ้งเตือน</p>
-        <h3 class="title" style="font-weight:bold;">{{count.notification}} <small>รายการ</small></h3>
+        <p class="category">แจ้งเตือน (วันนี้)</p>
+        <h3 class="title" style="font-weight:bold;">{{count.notification_today}}</h3>
       </div>
-      <!-- <div class="card-footer">
+      <div class="card-footer">
         <div class="stats">
-          <i class="material-icons text-danger">warning</i> <a href="#pablo">Get More Space...</a>
+          <i class="material-icons">notifications</i>รวมทั้งหมด {{count.notification}}
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
@@ -21,14 +21,14 @@
         <i class="material-icons">directions_car</i>
       </div>
       <div class="card-content">
-        <p class="category">จำนวนรถยนต์ที่ลงทะเบียน</p>
-        <h3 class="title" style="font-weight:bold;">{{count.car}} <small>คัน</small></h3>
+        <p class="category">รถยนต์ (วันนี้)</p>
+        <h3 class="title" style="font-weight:bold;">{{count.car_today}}</h3>
       </div>
-      <!-- <div class="card-footer">
+      <div class="card-footer">
         <div class="stats">
-          <i class="material-icons">date_range</i> Last 24 Hours
+          <i class="material-icons">directions_car</i>รวมทั้งหมด {{count.car}}
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
@@ -37,14 +37,14 @@
         <i class="material-icons">info_outline</i>
       </div>
       <div class="card-content">
-        <p class="category">ข่าวสาร</p>
-        <h3 class="title" style="font-weight:bold;">{{count.news}} <small>ฉบับ</small></h3>
+        <p class="category">ข่าวสาร (วันนี้)</p>
+        <h3 class="title" style="font-weight:bold;">{{count.news_today}}</h3>
       </div>
-      <!-- <div class="card-footer">
+      <div class="card-footer">
         <div class="stats">
-          <i class="material-icons">local_offer</i> Tracked from Github
+          <i class="material-icons">info_outline</i>รวมทั้งหมด {{count.news}}
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
@@ -53,19 +53,20 @@
         <i class="material-icons">people</i>
       </div>
       <div class="card-content">
-        <p class="category">ผู้ใช้งานแอป</p>
-        <h3 class="title" style="font-weight:bold;">{{count.user}} <small>คน</small></h3>
+        <p class="category">สมาชิก (วันนี้)</p>
+        <h3 class="title" style="font-weight:bold;">{{count.user_today}}</h3>
       </div>
-      <!-- <div class="card-footer">
+      <div class="card-footer">
         <div class="stats">
-          <i class="material-icons">update</i> Just Updated
+          <i class="material-icons">people</i>รวมทั้งหมด {{count.user}}
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </div>
 
-<div class="row">
+  <!-- ข้าวล่าสุด -->
+<!-- <div class="row">
   <div class="col-md-6">
     <div class="card">
       <div class="card-header" data-background-color="green">
@@ -84,7 +85,31 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-6 col-md-12">
+</div> -->
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="row clearfix">
+        <div class="col-xs-12">
+          <div class="card-content">
+            <div class="header">
+              <h4>สถิติการแจ้งเตือนในแต่ละวัน ประจำเดือน {{current_month | amDateFormat:'MMMM YYYY'}}</h4>
+            </div>
+            <div class="body">
+              <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- <div class="row">
+  <div class="col-md-12">
     <div class="card card-nav-tabs">
       <div class="card-header" data-background-color="purple">
         <div class="nav-tabs-navigation">
@@ -164,4 +189,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
