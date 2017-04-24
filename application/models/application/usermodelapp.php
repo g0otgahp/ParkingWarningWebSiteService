@@ -42,6 +42,33 @@ class usermodelapp extends CI_Model {
 		return $data;
 	}
 
+	public function checkUserName($input)
+	{
+		$data = $this->db
+		->where('user_username', $input['user_username'])
+		->get('user')
+		->result();
+		return $data;
+	}
+	public function activeUser($input)
+	{
+		$update['user_active']=1;
+		$data = $this->db
+		->where('user_username', $input['user_username'])
+		->where('user_active_code', $input['user_active_code'])
+		->update('user',$update);
+	}
+
+
+	public function selectUser($input)
+	{
+		$data = $this->db
+		->where('user_id', $input['user_id'])
+		->get('user')
+		->result();
+		return $data;
+	}
+
 	// public function updatePassword($id,$input)
 	// {
 	// 	$this->db->where('user_id', $id);

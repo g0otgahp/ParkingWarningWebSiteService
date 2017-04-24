@@ -42,8 +42,14 @@ class user_service extends REST_Controller
   {
     $input = $this->post();
 
+    $dt = new DateTime();
+
+		$input['user_register_date'] = $dt->format('Y-m-d H:i:s');
+    $input['user_active_code']  = randomPassword();
+
     $user = $this->usermodelapp->Register($input);
     // print_r($user);
+    sendMailActiveUser($input);
     $this->response($user, 200); // 200 being the HTTP response code
   }
 
@@ -65,6 +71,24 @@ function CheckUser_post()
   // print_r($user);
   $this->response($user, 200); // 200 being the HTTP response code
 }
+
+function checkUserName_post()
+{
+  $input = $this->post();
+  $user = $this->usermodelapp->checkUserName($input);
+  // print_r($user);
+  $this->response($user, 200); // 200 being the HTTP response code
+}
+
+function selectUser_post()
+{
+  $input = $this->post();
+  $user = $this->usermodelapp->checkUser($input);
+  // print_r($user);
+  $this->response($user, 200); // 200 being the HTTP response code
+}
+
+
 
 function updatePassword_post()
 {
@@ -98,7 +122,7 @@ function forgotPassword_post()
   $this->response($user, 200); // 200 being the HTTP response code
 }
 
-function sendNewPassword($email,$newpass){
+function sendMailActiveUser($input){
 
   // $strTo = $email;
 	// $strSubject = "=?UTF-8?B?".base64_encode("รหัสผ่านใหม่สำหรับบัญชี ParkingWarning")."?=";
@@ -135,18 +159,25 @@ function sendNewPassword($email,$newpass){
   //config
 
   $this->email->from('wichetpong159@hotmail.com', 'ParkingWarning');
-  $this->email->to($email); //ส่งถึงใคร
+  $this->email->to($input['user_email']); //ส่งถึงใคร
   $this->email->cc('wichetpong159@hotmail.com'); //cc ใคร
   $this->email->bcc('wichetpong159@hotmail.com'); //bcc ใคร
 
   $this->email->subject('รหัสผ่านใหม่ของบัญชี ParkingWarning'); //หัวข้อของอีเมล
   $this->email->message('
 	<h5>ParkingWarning</h5><br>
-  รหัสผ่านใหม่ของท่านคือ<br>'.$newpass); //เนื้อหาของอีเมล
+  ยืนยันตัวตน <br>'.site_url().'application/user_service/activeUser/'.$input['user_active_code']); //เนื้อหาของอีเมล
 
   $this->email->send();
 
 }
+
+function activeUser(){
+  $input['user_active_code'] = $this->uri->segment(3);
+  $input['user_username'] = $this->uri->segment(4);
+  $this->usermodelapp->activeUser($input);
+}
+
 function randomPassword($length = 8) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
