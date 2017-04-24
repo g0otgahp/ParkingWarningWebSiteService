@@ -59,7 +59,7 @@ class car_service extends REST_Controller
   }
 
   function uploadImage_post(){
-    $target_path = "theme/assets/img/car/";
+    $target_path = "upload/images/cars/";
     $target_path = $target_path . basename( $_FILES['file']['name']);
     if (move_uploaded_file($_FILES['file']['tmp_name'], $target_path)) {
         echo "Upload and move success";
