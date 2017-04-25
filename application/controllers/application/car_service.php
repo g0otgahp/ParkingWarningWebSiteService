@@ -94,8 +94,64 @@ class car_service extends REST_Controller
     $data = $this->post();
     $dt = new DateTime();
     $data['notification_date'] = $dt->format('Y-m-d H:i:s');
-    $myCar = $this->carmodelapp->carAddWarning($data);
-    $this->response($myCar, 200); // 200 being the HTTP response code
+
+    $myUser = $this->usermodelapp->selectUser($data);
+
+    $myNotificationList = $this->carmodelapp->carSelectWarning($data);
+
+    // print_r($myUser);
+    // print_r(json_decode(json_encode($myUser)));
+
+    unset($data['warning_list_name']);
+
+    $myAlert = $this->carmodelapp->carAddWarning($data);
+
+    $this->sendNotification($myUser,$data,$myNotificationList);
+
+    $this->response($myAlert, 200); // 200 being the HTTP response code
+  }
+
+  function sendNotification($myUser,$data,$myNotificationList){
+
+    $this->load->library('curl');
+    // $myUser = json_decode(json_encode($myUser));
+    // $myNotificationList = json_decode(json_encode($myNotificationList));
+
+    $API_URL = "https://onesignal.com/api/v1/notifications";
+    $APP_ID  = '6ac42896-75e0-44a6-800e-18ace3d1ffde';
+    $API_KEY = 'NjdiODRiNDktZTI5OS00MTM3LTlmOGItN2ZlNjU4MjIzZDMy';
+    // $USER_ID = $myUser[0]['user_device_id'];
+    // $message = $myNotificationList[0]->warning_list_name; // ข้อความที่เราต้องการส่ง
+
+    $content = array(
+          "en" => $myNotificationList[0]->warning_list_name);
+    $fields = array(
+    			'app_id' => "6ac42896-75e0-44a6-800e-18ace3d1ffde",
+    			'include_player_ids' => array($myUser[0]->user_device_id),
+    			'data' => array("foo" => "bar"),
+    			'ios_badgeType' => 'Increase',
+    			'ios_badgeCount' => 1,
+          'sound' => "parkingwarning",
+    			'contents' => $content
+    		);
+
+    $fields = json_encode($fields);
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $API_URL);
+    $headers = array(
+        'Content-type: application/json',
+        'Authorization: Basic '.$API_KEY,
+    );
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_HEADER, FALSE);
+    curl_setopt($ch, CURLOPT_POST, TRUE);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $response = curl_exec($ch);
+    curl_close($ch);
+    var_dump($response);
   }
 
   function carMyWarning_post()

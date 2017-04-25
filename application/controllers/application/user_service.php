@@ -83,7 +83,7 @@ function checkUserName_post()
 function selectUser_post()
 {
   $input = $this->post();
-  $user = $this->usermodelapp->checkUser($input);
+  $user = $this->usermodelapp->selectUser($input);
   // print_r($user);
   $this->response($user, 200); // 200 being the HTTP response code
 }

@@ -8,6 +8,7 @@ class emergencymodelapp extends CI_Model {
 		$data = $this->db
 		// ->order_by('promotion_id','DESC')
 		// ->join('promotion_user','promotion.promotion_id = promotion_user.promotion_user_id')
+		->where('emergency_phone_status',1)
 		->get('emergency_phone')
 		->result();
 		// $this->debuger->prevalue($data);

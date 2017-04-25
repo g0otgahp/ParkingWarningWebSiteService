@@ -37,7 +37,17 @@ class carmodelapp extends CI_Model {
 	public function carWarning()
 	{
 		$data = $this->db
-		->order_by('warning_list_name','ASC')
+		->order_by('warning_list_id','ASC')
+		->get('warning_list')
+		->result();
+		return $data;
+	}
+
+	public function carSelectWarning($input)
+	{
+		$data = $this->db
+		->where('warning_list_id',$input['warning_list_id'])
+		->order_by('warning_list_id','ASC')
 		->get('warning_list')
 		->result();
 		return $data;
@@ -69,6 +79,7 @@ class carmodelapp extends CI_Model {
 	public function carBrand()
 	{
 		$data = $this->db
+		->where('car_brand_status',1)
 		->order_by('car_brand_name','ASC')
 		->get('car_brand')
 		->result();
@@ -124,7 +135,6 @@ class carmodelapp extends CI_Model {
 		$this->db->insert('notification', $input);
 		// return $this->db->insert_id();
 	}
-
 
 	public function maxCarId($id){
 		$this->db->select_max('car_id');

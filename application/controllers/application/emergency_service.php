@@ -27,7 +27,6 @@ class emergency_service extends REST_Controller
 
   function emergencylist_get()
   {
-
 		$emergency = $this->emergencymodelapp->allemergency();
     $this->response($emergency, 200); // 200 being the HTTP response code
   }
