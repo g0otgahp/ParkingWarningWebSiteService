@@ -7,7 +7,7 @@ class adminmodel extends CI_Model {
 	{
 		$data = $this->db
 		->where('admin_username', $input['admin_username'])
-		->where('admin_password', $input['admin_password'])
+		->where('admin_password', md5($input['admin_password']))
 		->get('admin')
 		->result_array();
 		return $data;

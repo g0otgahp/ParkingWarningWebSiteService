@@ -83,7 +83,19 @@
         <p style="font-size:12px;">รายงานจำนวนรถตามยี่ห้อ</p>
       </a>
     </li>
+    <li>
+      <a href="<?php echo site_url('admin/report/report_news_history');?>">
+        <i class="material-icons">content_paste</i>
+        <p style="font-size:12px;">รายงานบันทึกการส่งข่าวสาร</p>
+      </a>
+    </li>
   </ul>
+
+  <a href="<?php echo site_url('admin/homepage/logout');?>">
+    <div style="font-weight:bold;" class="text-center form-control">
+    ออกจากระบบ
+  </div>
+  </a>
 </div>
 </div>
 <div class="main-panel">
@@ -96,7 +108,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="<?php echo SITE_URL('admin/homepage/logout');?>">Logout</a>
+      <!-- <a class="navbar-brand" href="<?php echo SITE_URL('admin/homepage/logout');?>">Logout</a> -->
     </div>
   </div>
   </nav>

@@ -14,27 +14,8 @@ app.controller('NewsDetailController', function ($scope, $http, $location, DTOpt
 	},function (error){
 	});
 
-
-$scope.news_modal = function(){
-	ModalService.showModal({
-			templateUrl: 'modal',
-			controller: "NewsDetailController"
-	}).then(function(modal) {
-			modal.element.modal();
-	});
+$scope.news_send = function(nid){
+	$window.location.href = SITE_URL + 'admin/news/news_send/?nid='+nid;
 }
-
- $scope.close = function() {
-	 console.log("NO");
- };
-
- $scope.send = function() {
-	console.log("Yes");
- };
-
-// $scope.news_search = function(data){
-// 	data = $scope.news;
-// 	console.log($scope.news);
-// }
 
 });

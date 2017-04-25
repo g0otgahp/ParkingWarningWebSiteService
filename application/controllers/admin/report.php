@@ -18,50 +18,82 @@ class report extends CI_Controller {
 
 	function report_notification()
 	{
-		@session_start();
+		session_start();
 		if ($_SESSION['ADMIN']!="") {
-		 $value = array(
-			'Result' => array(
-				'NgController' => "ReportController",
-			),
-			'View' => 'admin/report/report_notification',
-		);
-		$this->LoadPage($value);
-	} else {
-		redirect('admin/homepage');
-	}
+			$value = array(
+				'Result' => array(
+					'NgController' => "ReportController",
+				),
+				'View' => 'admin/report/report_notification',
+			);
+			$this->LoadPage($value);
+		} else {
+			redirect('admin/homepage');
+		}
 	}
 
 	function report_car_by_user()
 	{
-		@session_start();
+		session_start();
 		if ($_SESSION['ADMIN']!="") {
-		 $value = array(
-			'Result' => array(
-				'NgController' => "ReportUserController",
-			),
-			'View' => 'admin/report/report_car_by_user',
-		);
-		$this->LoadPage($value);
-	} else {
-		redirect('admin/homepage');
-	}
+			$value = array(
+				'Result' => array(
+					'NgController' => "ReportUserController",
+				),
+				'View' => 'admin/report/report_car_by_user',
+			);
+			$this->LoadPage($value);
+		} else {
+			redirect('admin/homepage');
+		}
 	}
 
 	function report_car_by_brand()
 	{
-		@session_start();
+		session_start();
 		if ($_SESSION['ADMIN']!="") {
-		 $value = array(
-			'Result' => array(
-				'NgController' => "ReportBrandController",
-			),
-			'View' => 'admin/report/report_car_by_brand',
-		);
-		$this->LoadPage($value);
-	} else {
-		redirect('admin/homepage');
+			$value = array(
+				'Result' => array(
+					'NgController' => "ReportBrandController",
+				),
+				'View' => 'admin/report/report_car_by_brand',
+			);
+			$this->LoadPage($value);
+		} else {
+			redirect('admin/homepage');
+		}
 	}
+
+	function report_news_history()
+	{
+	 session_start();
+		if ($_SESSION['ADMIN']!="") {
+			$value = array(
+				'Result' => array(
+					'NgController' => "ReportNewsHistoryController",
+				),
+				'View' => 'admin/report/report_news_history',
+			);
+			$this->LoadPage($value);
+		} else {
+			redirect('admin/homepage');
+		}
+	}
+
+	function report_news_history_detail()
+	{
+	 session_start();
+		if ($_SESSION['ADMIN']!="") {
+			$value = array(
+				'Result' => array(
+					'NgController' => "ReportNewsHistoryDetailController",
+				),
+				'View' => 'admin/report/report_news_history_detail',
+			);
+			$this->LoadPage($value);
+		} else {
+			redirect('admin/homepage');
+		}
 	}
 
 }

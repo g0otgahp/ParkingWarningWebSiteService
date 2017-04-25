@@ -23,7 +23,7 @@ class carmodel extends CI_Model {
 			$car_year = 0;
 		} else {
 			$year = $this->db
-			->where('car_model_id',$find['car_model_id'])
+			->where('car_model.car_model_id',$find['car_model_id'])
 			->get('car_model')
 			->result_array();
 			$car_year = $year[0]['car_brand_year_id'];
@@ -44,19 +44,21 @@ class carmodel extends CI_Model {
 					$this->db->where('car_register_date >=', $value);
 				} elseif ($key == "car_register_dateN") {
 					$this->db->where('car_register_date <=', $value);
+				} elseif ($key == "car_model_id") {
+					$this->db->where('car.car_model_id' , $value);
 				} else {
 					$this->db->where($key , $value);
 				}
 			}
 		}
-		$this->db->order_by('car_id','DESC');
+		$this->db->order_by('car_id','ASC');
 		$this->db->join('user','user.user_id = car.car_user_id');
 		$this->db->join('car_model','car_model.car_model_id = car.car_model_id');
 		$this->db->join('car_brand_year','car_brand_year.car_brand_year_id = car_model.car_brand_year_id');
 		$this->db->join('car_brand','car_brand.car_brand_id = car_brand_year.car_brand_id');
 		$this->db->join('car_color','car_color.car_color_id = car.car_color');
 		$this->db->join('province','province.province_id = car.car_province');
-		$query = $this->db->get('car')->result_array();
+		$query = $this->db->get('car',$find['num'])->result_array();
 		return $query;
 	}
 
@@ -71,7 +73,7 @@ class carmodel extends CI_Model {
 	public function all_brand_select()
 	{
 		$data = $this->db
-		->order_by('car_brand_id', 'ASC')
+		->order_by('car_brand_id', 'DESC')
 		->where('car_brand_status', 1)
 		->get('car_brand')->result();
 		return $data;
@@ -111,66 +113,136 @@ class carmodel extends CI_Model {
 
 	public function select_car($mid,$cid)
 	{
-	if ($cid==0) {
-		$query = $this->db
-		->where('car_user_id', $mid)
-		->join('car_model','car_model.car_model_id = car.car_model_id')
-		->join('car_brand_year','car_brand_year.car_brand_year_id = car_model.car_brand_year_id')
-		->join('car_brand','car_brand.car_brand_id = car_brand_year.car_brand_id')
-		->join('car_color','car_color.car_color_id = car.car_color')
-		->join('province','province.province_id = car.car_province')
-		->get('car')
-		->result();
-		$car = $query[0];
-	} else {
-		$query = $this->db
-		->where('car_id', $cid)
-		->join('car_model','car_model.car_model_id = car.car_model_id')
-		->join('car_brand_year','car_brand_year.car_brand_year_id = car_model.car_brand_year_id')
-		->join('car_brand','car_brand.car_brand_id = car_brand_year.car_brand_id')
-		->join('car_color','car_color.car_color_id = car.car_color')
-		->join('province','province.province_id = car.car_province')
-		->get('car')
-		->result();
-		$car = $query[0];
+		if ($cid==0) {
+			$query = $this->db
+			->where('car_user_id', $mid)
+			->join('car_model','car_model.car_model_id = car.car_model_id')
+			->join('car_brand_year','car_brand_year.car_brand_year_id = car_model.car_brand_year_id')
+			->join('car_brand','car_brand.car_brand_id = car_brand_year.car_brand_id')
+			->join('car_color','car_color.car_color_id = car.car_color')
+			->join('province','province.province_id = car.car_province')
+			->get('car')
+			->result();
+			$car = $query[0];
+		} else {
+			$query = $this->db
+			->where('car_id', $cid)
+			->join('car_model','car_model.car_model_id = car.car_model_id')
+			->join('car_brand_year','car_brand_year.car_brand_year_id = car_model.car_brand_year_id')
+			->join('car_brand','car_brand.car_brand_id = car_brand_year.car_brand_id')
+			->join('car_color','car_color.car_color_id = car.car_color')
+			->join('province','province.province_id = car.car_province')
+			->get('car')
+			->result();
+			$car = $query[0];
 
+		}
+		return $car;
 	}
-	return $car;
-}
 
-public function car_to_trash($id)
-{
-	$input = array('car_brand_status' => 0 );
-	$this->db
-	->where('car_brand_id',$id)
-	->update('car_brand',$input);
-}
+	public function car_to_trash($id)
+	{
+		$input = array('car_brand_status' => 0 );
+		$this->db
+		->where('car_brand_id',$id)
+		->update('car_brand',$input);
+	}
 
-public function car_restore($id)
-{
-	$input = array('car_brand_status' => 1 );
-	$this->db
-	->where('car_brand_id',$id)
-	->update('car_brand',$input);
-}
+	public function car_restore($id)
+	{
+		$input = array('car_brand_status' => 1 );
+		$this->db
+		->where('car_brand_id',$id)
+		->update('car_brand',$input);
+	}
 
-public function car_brand_by_id($id)
-{
-	$data = $this->db
-	->where('car_brand_id', $id)
-	->get('car_brand')
-	->result();
-	return $data;
-}
+	public function car_brand_by_id($id)
+	{
+		$data = $this->db
+		->where('car_brand_id', $id)
+		->get('car_brand')
+		->result();
+		return $data;
+	}
 
-public function edit_car_brand($input)
-{
-	$this->db->where('car_brand_id',$input['car_brand_id'])
-	->update('car_brand',$input);
-}
+	public function edit_car_brand($input)
+	{
+		$this->db->where('car_brand_id',$input['car_brand_id'])
+		->update('car_brand',$input);
+	}
 
-public function save_car_brand($input)
-{
-	$this->db->insert('car_brand',$input);
-}
+	public function save_car_brand($input)
+	{
+		$this->db->insert('car_brand',$input);
+	}
+
+	public function all_model_by_car($input)
+	{
+		$data = $this->db
+		->where('car_brand_year.car_brand_id', $input)
+		->join('car_brand','car_brand_year.car_brand_id = car_brand.car_brand_id')
+		->join('car_model','car_model.car_brand_year_id = car_brand_year.car_brand_year_id')
+		->order_by('car_model_id','DESC')
+		->get('car_brand_year')
+		->result();
+		return $data;
+	}
+
+	public function find_model_by_brand_id($input)
+	{
+		$data = $this->db
+		->where('car_model_id', $input)
+		->join('car_brand_year','car_brand_year.car_brand_year_id = car_model.car_brand_year_id')
+		->get('car_model')
+		->result();
+		return $data;
+	}
+
+
+	public function save_car_model($input)
+	{
+		$query = $this->db
+		->where('car_brand_id',$input['car_brand_id'])
+		->where('car_brand_year',$input['car_brand_year'])
+		->get('car_brand_year')
+		->result_array();
+
+		if (count($query) !=0) {
+			$model_year = $query[0]['car_brand_year_id'];
+		} else {
+			$year = array(
+				'car_brand_year' => $input['car_brand_year'],
+				'car_brand_id' => $input['car_brand_id'],
+			);
+			$this->db->insert('car_brand_year', $year);
+
+			$query2 = $this->db
+			->where('car_brand_id',$input['car_brand_id'])
+			->where('car_brand_year',$input['car_brand_year'])
+			->get('car_brand_year')
+			->result_array();
+
+			$model_year = $query2[0]['car_brand_year_id'];
+		}
+
+		if (isset($input['car_model_id'])) {
+			$model = array(
+				'car_model_id' => $input['car_model_id'],
+				'car_model_name' => $input['car_model_name'],
+				'car_brand_year_id' => $model_year
+			);
+			$this->db->where('car_model_id',$input['car_model_id'])->update('car_model', $model);
+
+		} else {
+			$model = array(
+				'car_model_name' => $input['car_model_name'],
+				'car_brand_year_id' => $model_year
+			);
+			$this->db->insert('car_model', $model);
+		}
+	}
+	public function model_delete($id)
+	{
+		$this->db->where('car_model_id',$id)->delete('car_model');
+	}
 }

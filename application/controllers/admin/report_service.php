@@ -69,6 +69,22 @@ class report_service extends REST_Controller {
 					) , 200); // 200 being the HTTP response code
 	}
 
+	public function find_report_news_history_post()
+	{
+		$find = $this->post();
+		$news_history = $this->reportmodel->report_news_history($find);
+
+		if (count($news_history) ==0) {
+			$alert = array('message' => 'ไม่พบรายการจ้งเตือน', 'type' => 'warning');
+		} else {
+			$alert = array('message' => 'โหลดรายการสำเร็จ', 'type' => 'success');
+		}
+
+		$this->response(array(
+					'alert' => $alert,
+					'news_history' => $news_history,
+					) , 200); // 200 being the HTTP response code
+	}
 }
 
 /* End of file welcome.php */

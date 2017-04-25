@@ -13,7 +13,7 @@
     <tbody>
       <tr ng-repeat="n in news_trash">
         <td>{{$index+1}}</td>
-        <td width="100"><img src="<?php echo base_url('upload/images')?>/{{n.news_pic}}" class="img-thumbnail"></td>
+        <td width="100"><img src="<?php echo base_url('upload/images/news')?>/{{n.news_pic}}" class="img-thumbnail"></td>
         <td>{{n.news_date_add | amDateFormat: "DD MMMM YY HH:MMน."}}</td>
         <td>{{n.news_name}}</td>
         <!-- <td>{{n.news_detail}}</td> -->

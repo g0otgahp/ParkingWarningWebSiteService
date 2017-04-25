@@ -25,6 +25,8 @@
           </div>
         </form>
       </div>
+      <div class="row" >
+        <div class="col-md-12 table-responsive">
       <table datatable="ng" dt-options="dtOptions" dt-instance="dtInstance"  class="table table-striped table-hover ">
         <p>ผลการค้นหา จำนวนการแจ้งเตือนทั้งหมด <span style="color:blue; font-weight:bold;">{{dt_report_noti.length}}</span> รายการ</p>
         <thead>

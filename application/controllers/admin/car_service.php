@@ -43,7 +43,11 @@ class car_service extends REST_Controller
   	{
   		$find = $this->post();
       $car = $this->carmodel->find_car($find);
-      $alert = array('message' => 'โหลดรายการรถยนต์สำเร็จ', 'type' => 'success');
+      if (empty($car)) {
+        $alert = array('message' => 'ไม่พบการค้นหา', 'type' => 'warning');
+      } else {
+        $alert = array('message' => 'โหลดรายการรถยนต์สำเร็จ', 'type' => 'success');
+      }
 
   		$this->response(array(
             'alert' => $alert,
@@ -57,7 +61,11 @@ class car_service extends REST_Controller
       $count = count($car);
       $car_brand_trash = $this->carmodel->all_brand_trash_select();
       $trash = count($car_brand_trash);
-      $alert = array('message' => 'โหลดรายการยี่ห้อสำเร็จ', 'type' => 'success');
+      if (empty($car)) {
+        $alert = array('message' => 'ไม่พบรายการยี่ห้อ', 'type' => 'warning');
+      } else {
+        $alert = array('message' => 'โหลดรายการยี่ห้อสำเร็จ', 'type' => 'success');
+      }
 
       $this->response(array(
             'alert' => $alert,
@@ -128,4 +136,70 @@ class car_service extends REST_Controller
         $this->carmodel->save_car_brand($input);
       }
     }
+
+    function find_car_model_list_post()
+    {
+      $input = $this->post();
+      $car_model = $this->carmodel->all_model_by_car($input['car_brand_id']);
+      $car_brand_noti = json_decode(json_encode($car_model),true);
+      $count = count($car_model);
+      $alert = array('message' => 'โหลดรายการรุ่นของ '.$car_brand_noti[0]['car_brand_name'].' สำเร็จ', 'type' => 'success');
+
+      $this->response(array(
+            'alert' => $alert,
+            'car_model' => $car_model,
+            'count' => $count,
+            ) , 200); // 200 being the HTTP response code
+    }
+
+    function car_model_by_id_post()
+    {
+      $input = $this->post();
+      if ($input['mid'] != 0) {
+        $car_model = $this->carmodel->find_model_by_brand_id($input['mid']);
+        $this->response(array(
+              'car_model' => $car_model,
+              ) , 200); // 200 being the HTTP response code
+      } else {
+        $car_model[0] = array(
+          'car_brand_id' => $input['bid']
+        );
+        $this->response(array(
+              'car_model' => $car_model,
+              ) , 200); // 200 being the HTTP response code
+      }
+    }
+
+    function car_model_save_post()
+    {
+      $input = $this->post();
+      $this->carmodel->save_car_model($input);
+    }
+
+    function car_model_delete_post()
+    {
+      $id = $this->post();
+      $this->carmodel->model_delete($id['car_mid']);
+
+      $car_model = $this->carmodel->all_model_by_car($id['car_bid']);
+      $count = count($car_model);
+      $alert = array('message' => 'ลบเรียบร้อย', 'type' => 'danger');
+
+      $this->response(array(
+            'alert' => $alert,
+            'car_model' => $car_model,
+            'count' => $count,
+            ) , 200); // 200 being the HTTP response code
+    }
+
+    function news_accpet_post()
+    {
+      $find = $this->post();
+      $car = $this->newsmodel->news_accpet($find);
+
+      $this->response(array(
+            'history' => $car,
+            ) , 200); // 200 being the HTTP response code
+    }
+
 }

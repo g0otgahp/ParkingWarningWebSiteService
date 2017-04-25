@@ -37,7 +37,7 @@ class helper extends REST_Controller
 		$name = sha1(microtime()) . "." . $extension;
 
 		// Save file in the uploads folder.
-		move_uploaded_file($_FILES["file"]["tmp_name"], getcwd() . "/upload/images/" . $name);
+		move_uploaded_file($_FILES["file"]["tmp_name"], getcwd() . "/upload/images/news/" . $name);
 
 		// Generate response.
 		$response = new StdClass;
@@ -45,7 +45,6 @@ class helper extends REST_Controller
 		$response->link = $name;
 		echo stripslashes(json_encode($response));
 	}
-
 	public function img_upload_brand_post() {
 		// Allowed extentions.
 		$allowedExts = array("gif", "jpeg", "jpg", "png");
@@ -73,7 +72,7 @@ class helper extends REST_Controller
 		$name = sha1(microtime()) . "." . $extension;
 
 		// Save file in the uploads folder.
-		move_uploaded_file($_FILES["file"]["tmp_name"], getcwd() . "upload/images/brand" . $name);
+		move_uploaded_file($_FILES["file"]["tmp_name"], getcwd() . "/upload/images/brand/" . $name);
 
 		// Generate response.
 		$response = new StdClass;
@@ -81,6 +80,7 @@ class helper extends REST_Controller
 		$response->link = $name;
 		echo stripslashes(json_encode($response));
 	}
+
 	public function login_post()
 	{
 		$input = $this->post();

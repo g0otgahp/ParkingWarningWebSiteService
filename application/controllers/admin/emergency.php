@@ -18,7 +18,7 @@ class emergency extends CI_Controller {
 
 	function index()
 	{
-		@session_start();
+		session_start();
 		if ($_SESSION['ADMIN']!="") {
 		 $value = array(
 			'Result' => array(
@@ -34,6 +34,8 @@ class emergency extends CI_Controller {
 
 	function emergency_form()
 	{
+		session_start();
+		if ($_SESSION['ADMIN']!="") {
 		 $value = array(
 			'Result' => array(
 				'NgController' => "EmergencyFormController",
@@ -41,6 +43,9 @@ class emergency extends CI_Controller {
 			'View' => 'admin/emergency/emergency_form',
 		);
 		$this->LoadPage($value);
+	} else {
+		redirect('admin/homepage');
+	}
 	}
 }
 

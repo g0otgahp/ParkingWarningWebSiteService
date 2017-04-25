@@ -425,6 +425,8 @@ app.factory('Bill', function($http) {
 
   return {List: _list, Save: _save, Find: _find};
 });
+
+
 app.directive('imgUpload', function(httpPostFactory) {
   return {
     restrict: 'EA',
@@ -446,6 +448,29 @@ app.directive('imgUpload', function(httpPostFactory) {
     // template:   '<img ng-model="{{store_logo}}">'
   }
 });
+
+app.directive('imgUploadBrand', function(httpPostFactory) {
+  return {
+    restrict: 'EA',
+    scope: {
+      store_logo: "=bind"
+    },
+    link: function(scope, element, attr) {
+
+      element.bind('change', function() {
+        var formData = new FormData();
+        formData.append('file', element[0].files[0]);
+        httpPostFactory(SITE_URL + 'admin/helper/img_upload_brand', formData, function(callback) {
+          // recieve image name to use in a ng-src
+          scope.store_logo = callback.data.link;
+        });
+      });
+
+    },
+    // template:   '<img ng-model="{{store_logo}}">'
+  }
+});
+
 app.factory('httpPostFactory', function($http) {
   return function(file, data, callback) {
     $http({

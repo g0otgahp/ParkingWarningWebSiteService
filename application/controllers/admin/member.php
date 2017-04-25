@@ -17,7 +17,7 @@ class member extends CI_Controller {
 
 	function index()
 	{
-		@session_start();
+		session_start();
 		if ($_SESSION['ADMIN']!="") {
 		 $value = array(
 			'Result' => array(
@@ -33,6 +33,8 @@ class member extends CI_Controller {
 
 	public function memberdetail()
 	{
+		session_start();
+		if ($_SESSION['ADMIN']!="") {
 		$value = array(
 		 'Result' => array(
 			 'NgController' => "MemberDetailController",
@@ -40,6 +42,9 @@ class member extends CI_Controller {
 		 'View' => 'admin/member/member_detail',
 	 );
 	 $this->LoadPage($value);
+ } else {
+	 redirect('admin/homepage');
+ }
 	}
 }
 

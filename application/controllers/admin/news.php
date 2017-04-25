@@ -18,7 +18,7 @@ class news extends CI_Controller {
 
 	function index()
 	{
-		@session_start();
+		session_start();
 		if ($_SESSION['ADMIN']!="") {
 		 $value = array(
 			'Result' => array(
@@ -34,6 +34,8 @@ class news extends CI_Controller {
 
 	function news_form()
 	{
+		session_start();
+		if ($_SESSION['ADMIN']!="") {
 		 $value = array(
 			'Result' => array(
 				'NgController' => "NewsFormController",
@@ -41,10 +43,15 @@ class news extends CI_Controller {
 			'View' => 'admin/news/news_form',
 		);
 		$this->LoadPage($value);
+	} else {
+		redirect('admin/homepage');
+	}
 	}
 
 	function news_detail()
 	{
+		session_start();
+		if ($_SESSION['ADMIN']!="") {
 		 $value = array(
 			'Result' => array(
 				'NgController' => "NewsDetailController",
@@ -52,6 +59,24 @@ class news extends CI_Controller {
 			'View' => 'admin/news/news_detail',
 		);
 		$this->LoadPage($value);
+	} else {
+		redirect('admin/homepage');
+	}
+	}
+	function news_send()
+	{
+		session_start();
+		if ($_SESSION['ADMIN']!="") {
+		 $value = array(
+			'Result' => array(
+				'NgController' => "NewsSendController",
+			),
+			'View' => 'admin/news/news_Send',
+		);
+		$this->LoadPage($value);
+	} else {
+		redirect('admin/homepage');
+	}
 	}
 }
 

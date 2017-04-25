@@ -47,4 +47,9 @@ $scope.car_brand_detail = function(id){
 	$window.location.href = SITE_URL + 'admin/car/car_brand_detail/?cid='+id;
 }
 
+$scope.car_brand_model = function(id){
+	console.log(id);
+	$window.location.href = SITE_URL + 'admin/car/car_model/?bid='+id;
+}
+
 });

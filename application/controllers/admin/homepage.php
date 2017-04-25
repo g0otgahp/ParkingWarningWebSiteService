@@ -29,7 +29,7 @@ class homepage extends CI_Controller {
 			$_SESSION['ADMIN'] = $admin[0]['admin_username'];
 			redirect('admin/dashboard');
 		} else {
-			redirect('admin/homepage');
+			redirect();
 		}
 	}
 }

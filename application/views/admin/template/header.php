@@ -7,7 +7,7 @@
   <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>Parking Warning Admin </title>
+  <title>Parking Warning : Admin </title>
   <link rel="stylesheet" href="<?php echo base_url('assets\font-awesome\css\font-awesome.min.css')?>" media="all">
   <link rel="stylesheet" href="<?php echo base_url('assets\fonts_th_sarabun\thsarabunnew.css')?>" media="all">
   <!-- Material Design fonts -->

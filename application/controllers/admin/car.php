@@ -32,6 +32,8 @@ class car extends CI_Controller {
 
 	function cardetail()
 	{
+		session_start();
+		if ($_SESSION['ADMIN']!="") {
 		 $value = array(
 			'Result' => array(
 				'NgController' => "CarController",
@@ -39,10 +41,15 @@ class car extends CI_Controller {
 			'View' => 'admin/car/car_detail',
 		);
 		$this->LoadPage($value);
+	} else {
+		redirect('admin/homepage');
+	}
 	}
 
 	function car_brand()
 	{
+		session_start();
+		if ($_SESSION['ADMIN']!="") {
 		 $value = array(
 			'Result' => array(
 				'NgController' => "CarBrandController",
@@ -50,10 +57,15 @@ class car extends CI_Controller {
 			'View' => 'admin/car/car_brand_list',
 		);
 		$this->LoadPage($value);
+	} else {
+		redirect('admin/homepage');
+	}
 	}
 
 	function car_brand_form()
 	{
+		session_start();
+		if ($_SESSION['ADMIN']!="") {
 		 $value = array(
 			'Result' => array(
 				'NgController' => "CarBrandFormController",
@@ -61,10 +73,15 @@ class car extends CI_Controller {
 			'View' => 'admin/car/car_brand_form',
 		);
 		$this->LoadPage($value);
+	} else {
+		redirect('admin/homepage');
+	}
 	}
 
 	function car_brand_detail()
 	{
+		session_start();
+		if ($_SESSION['ADMIN']!="") {
 		 $value = array(
 			'Result' => array(
 				'NgController' => "CarBrandDetailController",
@@ -72,6 +89,41 @@ class car extends CI_Controller {
 			'View' => 'admin/car/car_brand_detail',
 		);
 		$this->LoadPage($value);
+	} else {
+		redirect('admin/homepage');
+	}
+	}
+
+	function car_model()
+	{
+		session_start();
+		if ($_SESSION['ADMIN']!="") {
+		 $value = array(
+			'Result' => array(
+				'NgController' => "CarModelController",
+			),
+			'View' => 'admin/car/car_model_list',
+		);
+		$this->LoadPage($value);
+	} else {
+		redirect('admin/homepage');
+	}
+	}
+
+	function car_model_form()
+	{
+		session_start();
+		if ($_SESSION['ADMIN']!="") {
+		 $value = array(
+			'Result' => array(
+				'NgController' => "CarModelFormController",
+			),
+			'View' => 'admin/car/car_model_form',
+		);
+		$this->LoadPage($value);
+	} else {
+		redirect('admin/homepage');
+	}
 	}
 }
 
