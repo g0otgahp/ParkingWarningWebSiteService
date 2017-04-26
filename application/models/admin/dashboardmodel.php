@@ -5,6 +5,7 @@ class dashboardmodel extends CI_Model {
 
 	public function Dashboard_count()
 	{
+		date_default_timezone_set("Asia/Bangkok");
 		$datenow = date('Y-m-d')."%";
 		$data = array();
 		$data['notification'] = $this->db->get('notification')->num_rows();
