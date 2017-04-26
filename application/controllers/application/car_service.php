@@ -114,24 +114,26 @@ class car_service extends REST_Controller
   function sendNotification($myUser,$data,$myNotificationList){
 
     $this->load->library('curl');
-    // $myUser = json_decode(json_encode($myUser));
-    // $myNotificationList = json_decode(json_encode($myNotificationList));
-
     $API_URL = "https://onesignal.com/api/v1/notifications";
     $APP_ID  = '6ac42896-75e0-44a6-800e-18ace3d1ffde';
     $API_KEY = 'NjdiODRiNDktZTI5OS00MTM3LTlmOGItN2ZlNjU4MjIzZDMy';
-    // $USER_ID = $myUser[0]['user_device_id'];
-    // $message = $myNotificationList[0]->warning_list_name; // ข้อความที่เราต้องการส่ง
-
+    $linkLogo = base_url('upload/images/notification/notification_icon.png');
     $content = array(
           "en" => $myNotificationList[0]->warning_list_name);
     $fields = array(
     			'app_id' => "6ac42896-75e0-44a6-800e-18ace3d1ffde",
+          // 'alert' => "Testtest has requested to be your friend.",
     			'include_player_ids' => array($myUser[0]->user_device_id),
-    			'data' => array("foo" => "bar"),
+    			// 'data' => array("foo" => "bar"),
     			'ios_badgeType' => 'Increase',
     			'ios_badgeCount' => 1,
-          'sound' => "parkingwarning",
+          'ios_sound' => "parkingwarning.wav",
+          'android_sound' => "parkingwarning",
+          // 'small_icon' => "ic_stat_logo",
+          // 'large_icon' => "ic_stat_logo",
+          'large_icon' => $linkLogo,
+          // 'android_background_layout' => array("headings_color" => "FF0000FF","contents_color" => "FFFF0000"),
+          'android_accent_color' => "FFFF0000",
     			'contents' => $content
     		);
 
