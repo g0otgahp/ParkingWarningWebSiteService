@@ -32,21 +32,23 @@
         <thead>
           <tr class="info">
             <th width="10%">ลำดับ</th>
+            <th>วันที่/เวลา</th>
             <th>หัวข้อข่าว</th>
-            <th>ยี่ห้อ</th>
+            <!-- <th>ยี่ห้อ</th>
             <th>รุ่น</th>
             <th>ปี</th>
             <th>สี</th>
-            <th>จังหวัด</th>
+            <th>จังหวัด</th> -->
             <th>จำนวนรถ (คัน)</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="row in dt_report_history">
             <td>{{$index+1}}</td>
+            <td>{{row.news_history_date | amDateFormat: "DD MMMM YYYY HH:mmน."}}</td>
             <td>{{row.news_name}}</td>
 
-            <td ng-if="row.car_brand_id != 0">{{row.car_brand_name}}</td>
+            <!-- <td ng-if="row.car_brand_id != 0">{{row.car_brand_name}}</td>
             <td ng-if="row.car_brand_id == 0">ทุกยี่ห้อ</td>
 
             <td ng-if="row.car_model_id != 0">{{row.car_model_name}}</td>
@@ -59,7 +61,7 @@
             <td ng-if="row.car_color_id == 0">ทุกสี</td>
 
             <td ng-if="row.province_id != 0">{{row.province_name}}</td>
-            <td ng-if="row.province_id == 0">ทุกจังหวัด</td>
+            <td ng-if="row.province_id == 0">ทุกจังหวัด</td> -->
 
             <td>{{row.car_num}}</td>
           </tr>

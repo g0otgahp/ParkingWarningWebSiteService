@@ -12,7 +12,7 @@ $scope.dtOptions = DTOptionsBuilder
     extend:    'print',
     text:     btn_print,
     exportOptions: {
-      columns: [0, 1, 2 ,3 ,4 ,5 ,6 ,7]
+      columns: [0, 1, 2 ,3]
     },
     titleAttr: 'Print'
   },
@@ -20,7 +20,7 @@ $scope.dtOptions = DTOptionsBuilder
     extend:    'excelHtml5',
     text:      '<i class="uk-icon-file-excel-o"></i> XLSX',
     exportOptions: {
-      columns: [0, 1, 2 ,3 ,4 ,5 ,6 ,7]
+      columns: [0, 1, 2 ,3]
     },
     titleAttr: ''
   },

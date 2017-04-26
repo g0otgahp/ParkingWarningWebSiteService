@@ -27,25 +27,25 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="card">
-			<img src="<?php echo base_url('/upload/images')?>/{{car_select.car_pic_front}}" alt="" class="img-responsive">
+			<img src="<?php echo base_url('/upload/images/cars')?>/{{car_select.car_pic_front}}" alt="" class="img-responsive">
 
 		</div>
 	</div>
 	<div class="col-md-12">
 		<div class="card">
-			<img src="<?php echo base_url('/upload/images')?>/{{car_select.car_pic_back}}" alt="" class="img-responsive">
+			<img src="<?php echo base_url('/upload/images/cars')?>/{{car_select.car_pic_back}}" alt="" class="img-responsive">
 
 		</div>
 	</div>
 	<div class="col-md-12">
 		<div class="card">
-			<img src="<?php echo base_url('/upload/images')?>/{{car_select.car_pic_left}}" alt="" class="img-responsive">
+			<img src="<?php echo base_url('/upload/images/cars')?>/{{car_select.car_pic_left}}" alt="" class="img-responsive">
 
 		</div>
 	</div>
 	<div class="col-md-12">
 		<div class="card">
-			<img src="<?php echo base_url('/upload/images')?>/{{car_select.car_pic_right}}" alt="" class="img-responsive">
+			<img src="<?php echo base_url('/upload/images/cars')?>/{{car_select.car_pic_right}}" alt="" class="img-responsive">
 
 		</div>
 	</div>

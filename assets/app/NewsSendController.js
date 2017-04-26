@@ -29,26 +29,6 @@ $scope.selectCarModels = function(data) {
 
 $scope.findcar = function() {
   var data = {
-    car_brand_id : $scope.car_brand_id,
-    car_model_id : $scope.car_model_id,
-    car_color : $scope.car_color_id,
-    car_province : $scope.province_id,
-    ds: moment($scope.date.ds).format(),
-    de: moment($scope.date.de).format(),
-		num: $scope.car_num
-  }
-  $http.post(SITE_URL + 'admin/car_service/find_car', data).then( function (response) {
-    appNotify(response.data.alert.message, response.data.alert.type);
-    $scope.dt_car = response.data.car;
-		$scope.history = response.data.history;
-  }, function(error) {
-    console.log(error);
-  }
-);
-}
-
-$scope.news_accept = function() {
-  var data = {
 		news_id : $scope.news_id,
     car_brand_id : $scope.car_brand_id,
     car_model_id : $scope.car_model_id,
@@ -58,11 +38,33 @@ $scope.news_accept = function() {
     de: moment($scope.date.de).format(),
 		num: $scope.car_num
   }
+  $http.post(SITE_URL + 'admin/car_service/find_news_car', data).then( function (response) {
+    appNotify(response.data.alert.message, response.data.alert.type);
+    $scope.dt_car = response.data.car;
+		$scope.history = response.data.history;
+  }, function(error) {
+    console.log(error);
+  }
+);
+}
+
+$scope.news_accept = function(num) {
+  var data = {
+		news_id : $scope.news_id,
+    car_brand_id : $scope.car_brand_id,
+    car_model_id : $scope.car_model_id,
+    car_color : $scope.car_color_id,
+    car_province : $scope.province_id,
+    ds: moment($scope.date.ds).format(),
+    de: moment($scope.date.de).format(),
+		num: num,
+  }
 	console.log(data);
   $http.post(SITE_URL + 'admin/car_service/news_accpet', data).then( function (response) {
-		// var id = response.data.history;
+		var id = response.data.history;
 		$window.location.href = SITE_URL + 'admin/report/report_news_history';
-  }, function(error) {
+  }
+, function(error) {
     console.log(error);
   }
 );

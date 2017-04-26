@@ -75,6 +75,7 @@ class reportmodel extends CI_Model {
 		$de = substr($find['de'], 0 ,10);
 
 		$query = $this->db
+		->order_by('news_history_id','DESC')
 		->where('news_history_date_only >=', $ds)
 		->where('news_history_date_only <=', $de)
 		->get('news_history')

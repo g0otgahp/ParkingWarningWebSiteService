@@ -43,9 +43,9 @@
 			<div class="col-md-4">
 				<div class="card card-profile">
 					<div class="card-avatar">
-						<a href="#">
-							<img class="img" src="<?php echo base_url('/upload/images'); ?>\{{member[0].user_photo}}" />
-						</a>
+						<!-- <a href="#"> -->
+							<img class="img" src="<?php echo base_url('/upload/images/users'); ?>/{{member[0].user_photo}}" />
+						<!-- </a> -->
 					</div>
 
 					<div class="content">

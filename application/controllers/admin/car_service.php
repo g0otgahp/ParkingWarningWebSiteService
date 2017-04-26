@@ -54,7 +54,7 @@ class car_service extends REST_Controller
   		      'car' => $car,
   		     	) , 200); // 200 being the HTTP response code
   	}
-
+    
     function find_car_brand_get()
     {
       $car = $this->carmodel->all_brand_select();
@@ -199,6 +199,22 @@ class car_service extends REST_Controller
 
       $this->response(array(
             'history' => $car,
+            ) , 200); // 200 being the HTTP response code
+    }
+
+    function find_news_car_post()
+    {
+      $find = $this->post();
+      $car = $this->carmodel->find_news_car($find);
+      if (empty($car)) {
+        $alert = array('message' => 'ไม่พบการค้นหา', 'type' => 'warning');
+      } else {
+        $alert = array('message' => 'โหลดรายการรถยนต์สำเร็จ', 'type' => 'success');
+      }
+
+      $this->response(array(
+            'alert' => $alert,
+            'car' => $car,
             ) , 200); // 200 being the HTTP response code
     }
 

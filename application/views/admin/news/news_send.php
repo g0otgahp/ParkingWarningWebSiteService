@@ -1,8 +1,7 @@
 <div class="col-md-12">
   <div class="card">
     <div class="card-header" data-background-color="orange">
-      <h3 class="title"><i class="material-icons">directions_car</i> เลือกรายการรถที่จะส่ง</h3>
-      <button class="btn btn-raised btn-danger" ng-click="news_send_cancel()">X ยกเลิก</button>
+      <h3 class="title"><i class="material-icons">directions_car</i> เลือกรายการรถที่จะส่ง       <button class="btn btn-raised btn-danger" ng-click="news_send_cancel()">X ยกเลิกส่งข่าว</button></h3>
     </div>
       <form ng-submit="findcar();">
       <input type="hidden" class="form-control" ng-model="news_id">
@@ -90,8 +89,8 @@
                 <th width="11%">รุ่น</th>
                 <th width="11%">ปี</th>
                 <th width="11%">สี</th>
-                <th width="11%">เจ้าของรถ</th>
-                <th width="11%">ตัวเลือก</th>
+                <!-- <th width="11%">เจ้าของรถ</th>
+                <th width="11%">ตัวเลือก</th> -->
               </tr>
             </thead>
             <tbody>
@@ -103,13 +102,13 @@
                 <td>{{row.car_model_name}}</td>
                 <td>{{row.car_brand_year}}</td>
                 <td>{{row.car_color_name}}</td>
-                <td align="left">{{row.user_fullname}}</td>
+                <!-- <td align="left">{{row.user_fullname}}</td>
                 <td class="td-actions text-right">
                   <button ng-click="member_detail(row.user_id,row.car_id)" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="รายละเอียด">
                     <i class="material-icons">details</i>
                     รายละเอียด
                   </button>
-                </td>
+                </td> -->
               </tr>
             </tbody>
           </table>
@@ -118,7 +117,7 @@
       </div>
       <span ng-if="dt_car != 0">
       <div class="col-md-12 text-center">
-        <button class="btn btn-raised btn-success" ng-click="news_accept()">ยืนยันการส่งข่าว</button>
+        <button class="btn btn-raised btn-success" ng-click="news_accept(dt_car.length)">ยืนยันการส่งข่าว</button>
       </div>
     </span>
     </div>

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12 table-responsive">
-    <h3>ผลการค้นหา</h3>
+    <h3> <span style="color:blue;"> {{car_not.length}} </span> รายการแจ้งเตือน</h3>
     <table datatable="ng" dt-options="dtOptions" dt-instance="dtInstance"  class="table table-striped table-hover ">
       <thead>
         <tr>
