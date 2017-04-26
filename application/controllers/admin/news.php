@@ -71,7 +71,7 @@ class news extends CI_Controller {
 			'Result' => array(
 				'NgController' => "NewsSendController",
 			),
-			'View' => 'admin/news/news_Send',
+			'View' => 'admin/news/news_send',
 		);
 		$this->LoadPage($value);
 	} else {

@@ -75,8 +75,8 @@
     <!-- <h1>Login</h1> -->
     <center><img src="<?php echo base_url('upload\logo\logo.png');?>" height="200px"></center>
     <form method="post">
-      <input name="admin_username" type="text" required>
-      <input name="admin_password" type="password" required>
+      <input name="admin_username" type="text" required placeholder="กรอก Username">
+      <input name="admin_password" type="password" required placeholder="กรอกรหัสผผ่าน">
       <button type="submit" class="btn btn-primary btn-block btn-large">เข้าสู่ระบบ</button>
       <?php echo form_close(); ?>
     </div>

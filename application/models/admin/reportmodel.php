@@ -9,21 +9,23 @@ class reportmodel extends CI_Model {
 		$de = substr($find['de'], 0 ,10);
 
 		$data = $this->db
-		->order_by('notification_date_only','ASC')
-		->where('notification_date_only >=', $ds."%")
-		->where('notification_date_only <=', $de."%")
+		->order_by('notification_date','ASC')
+		->where('DATE(notification_date) >=', $ds)
+		->where('DATE(notification_date) <=', $de)
+		->select('DATE(notification_date)')
 		->distinct()
-		->select('notification_date_only')
 		->get('notification')->result_array();
-
 		$i = 0;
 		foreach ($data as $row) {
 			$query = $this->db
-			->where('notification_date_only', $row['notification_date_only'])
+			->where('notification_date LIKE', $row["DATE(notification_date)"]."%")
 			->get('notification')->num_rows();
+
+			$data[$i]['notification_date'] = $row["DATE(notification_date)"];
 			$data[$i]['num'] = $query;
 			$i++;
 		}
+
 		return $data;
 	}
 	public function report_car_by_user($find)
@@ -73,6 +75,7 @@ class reportmodel extends CI_Model {
 	{
 		$ds = substr($find['ds'], 0 ,10);
 		$de = substr($find['de'], 0 ,10);
+
 
 		$query = $this->db
 		->order_by('news_history_id','DESC')

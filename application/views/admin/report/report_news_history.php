@@ -2,7 +2,7 @@
 
   <div class="card">
     <div class="card-header" data-background-color="orange">
-      <h3 class="title"><i class="material-icons">content_paste</i> รายงานจำนวนรถตามสมาชิก</h3>
+      <h3 class="title"><i class="material-icons">content_paste</i> รายงานบันทึกการส่งข่าว</h3>
       <!-- <p class="category">Here is a subtitle for this table</p> -->
     </div>
     <div class="card-content ">

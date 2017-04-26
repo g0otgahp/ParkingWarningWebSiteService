@@ -29,10 +29,10 @@
         </div>
         <div class="tab-content">
           <div class="tab-pane active" id="emergency">
-            <?php $this->load->view('admin\emergency\tab_emergency'); ?>
+            <?php $this->load->view('admin/emergency/tab_emergency'); ?>
           </div>
           <div class="tab-pane" id="emergency_trash">
-            <?php $this->load->view('admin\emergency\tab_emergency_trash'); ?>
+            <?php $this->load->view('admin/emergency/tab_emergency_trash'); ?>
           </div>
         </div>
       </div>

@@ -18,6 +18,7 @@ app.controller('NewsSendController', function ($scope, $http, $location, DTOptio
 
 $scope.selectCarModels = function(data) {
   data = {
+    car_brand_year_id : $scope.car_brand_year_id,
     car_brand_id : $scope.car_brand_id
   }
   $http.post(SITE_URL + 'admin/car_service/find_models', data).then( function (response) {
@@ -27,11 +28,23 @@ $scope.selectCarModels = function(data) {
   });
 };
 
+$scope.selectCarYears = function(data) {
+  data = {
+    car_brand_id : $scope.car_brand_id
+  }
+  $http.post(SITE_URL + 'admin/car_service/find_year', data).then( function (response) {
+    $scope.dt_year = response.data.year;
+  }, function(error) {
+    console.log(error);
+  });
+};
+
 $scope.findcar = function() {
   var data = {
 		news_id : $scope.news_id,
-    car_brand_id : $scope.car_brand_id,
-    car_model_id : $scope.car_model_id,
+		car_brand_id : $scope.car_brand_id,
+    car_model_name : $scope.car_model_id,
+    car_brand_year_id : $scope.car_brand_year_id,
     car_color : $scope.car_color_id,
     car_province : $scope.province_id,
     ds: moment($scope.date.ds).format(),

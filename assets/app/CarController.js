@@ -41,10 +41,22 @@ $scope.dtOptions = DTOptionsBuilder
 
 $scope.selectCarModels = function(data) {
   data = {
+    car_brand_year_id : $scope.car_brand_year_id,
     car_brand_id : $scope.car_brand_id
   }
   $http.post(SITE_URL + 'admin/car_service/find_models', data).then( function (response) {
     $scope.dt_model = response.data.models;
+  }, function(error) {
+    console.log(error);
+  });
+};
+
+$scope.selectCarYears = function(data) {
+  data = {
+    car_brand_id : $scope.car_brand_id
+  }
+  $http.post(SITE_URL + 'admin/car_service/find_year', data).then( function (response) {
+    $scope.dt_year = response.data.year;
   }, function(error) {
     console.log(error);
   });
@@ -57,7 +69,8 @@ $scope.member_detail = function(id,cid) {
 $scope.findcar = function() {
   var data = {
     car_brand_id : $scope.car_brand_id,
-    car_model_id : $scope.car_model_id,
+    car_model_name : $scope.car_model_id,
+    car_brand_year_id : $scope.car_brand_year_id,
     car_color : $scope.car_color_id,
     car_province : $scope.province_id,
     ds: moment($scope.date.ds).format(),

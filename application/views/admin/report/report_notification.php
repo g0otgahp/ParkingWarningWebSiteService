@@ -39,7 +39,7 @@
         <tbody>
           <tr ng-repeat="row in dt_report_noti">
             <td>{{$index+1}}</td>
-            <td>{{row.notification_date_only | amDateFormat:"DD MMMM YYYY"}}</td>
+            <td>{{row.notification_date | amDateFormat:"DD MMMM YYYY"}}</td>
             <td>{{row.num}}</td>
           </tr>
         </tbody>

@@ -21,7 +21,7 @@
             </div>
             <div class="col-md-3">
               <h4>ตั้งค่ารูปหน้าปก</h4>
-            <input required type="file" name="file" id="file" img-Upload bind="news.news_pic">
+            <input type="file" name="file" id="file" img-Upload bind="news.news_pic">
             <p><img height="200px" class="img" ng-src="<?php echo base_url('upload/images/news'); ?>/{{news.news_pic}}" alt=""></p>
           </form>
         </div>

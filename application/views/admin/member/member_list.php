@@ -25,6 +25,8 @@
           </div>
         </form>
       </div>
+      <div class="row" >
+        <div class="col-md-12 table-responsive">
       <table datatable="ng" dt-options="dtOptions" dt-instance="dtInstance"  class="table table-striped table-hover ">
         <h3>ผลการค้นหา</h3>
         <p>ผลการค้นหา ทั้งหมด <span style="color:blue; font-weight:bold;">{{dt_member.length}}</span> รายการ</p>

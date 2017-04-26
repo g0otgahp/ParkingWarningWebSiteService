@@ -34,17 +34,6 @@ $scope.dtOptions = DTOptionsBuilder
 .withLanguage(language_th);
 
 
-$scope.selectCarModels = function(data) {
-  data = {
-    car_brand_id : $scope.car_brand_id
-  }
-  $http.post(SITE_URL + 'admin/car_service/find_models', data).then( function (response) {
-    $scope.dt_model = response.data.models;
-  }, function(error) {
-    console.log(error);
-  });
-};
-
 $scope.member_detail = function(id,cid) {
   $window.location.href = SITE_URL + 'admin/member/memberdetail/?mid='+id+'&cid='+cid;
 };

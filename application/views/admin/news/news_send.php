@@ -3,17 +3,26 @@
     <div class="card-header" data-background-color="orange">
       <h3 class="title"><i class="material-icons">directions_car</i> เลือกรายการรถที่จะส่ง       <button class="btn btn-raised btn-danger" ng-click="news_send_cancel()">X ยกเลิกส่งข่าว</button></h3>
     </div>
-      <form ng-submit="findcar();">
-      <input type="hidden" class="form-control" ng-model="news_id">
+    <form ng-submit="findcar();">
       <div class="card-content ">
         <div class="row">
           <div class="col-md-3">
             <div class="form-group">
               <label for="s1">ยี่ห้อรถยนต์</label>
-              <select required ng-change="selectCarModels();" ng-model="car_brand_id" class="form-control">
+              <select required ng-change="selectCarYears();" ng-model="car_brand_id" class="form-control">
                 <option value="">เลือกยี่ห้อรถยนต์</option>
                 <option value="0">เลือกทั้งหมด</option>
                 <option ng-repeat="item in dt_brand" value="{{item.car_brand_id}}">{{item.car_brand_name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="s1">เลือกปีผลิตรุ่นรถ</label>
+              <select required ng-change="selectCarModels();" class="form-control" ng-model="car_brand_year_id">
+                <option value="">เลือกปีรถ</option>
+                <option value="0">เลือกทั้งหมด</option>
+                <option ng-repeat="item in dt_year" value="{{item.car_brand_year_id}}">ปี {{item.car_brand_year}}</option>
               </select>
             </div>
           </div>
@@ -23,7 +32,7 @@
               <select required class="form-control" ng-model="car_model_id">
                 <option value="">เลือกรุ่นรถยนต์</option>
                 <option value="0">เลือกทั้งหมด</option>
-                <option ng-repeat="item in dt_model" value="{{item.car_model_id}}">ปี {{item.car_brand_year}} - {{item.car_model_name}} </option>
+                <option ng-repeat="item in dt_model" value="{{item.car_model_name}}">{{item.car_model_name}} </option>
               </select>
             </div>
           </div>
@@ -37,6 +46,8 @@
               </select>
             </div>
           </div>
+        </div>
+        <div class="row">
           <div class="col-md-3">
             <div class="form-group">
               <label for="s1">จังหวัด</label>
@@ -47,8 +58,6 @@
               </select>
             </div>
           </div>
-        </div>
-        <div class="row">
           <div class="col-md-3">
             <div class="form-group">
               <label for="s1">วันที่ลงทะเบียน (เริ่ม)</label>
@@ -71,9 +80,8 @@
         <div class="row">
           <div class="col-md-12 text-center">
             <button type="submit" class="btn btn-raised btn-info">ค้นหา</button>
+          </div>
         </div>
-        </div>
-
       </form>
       <div class="row">
         <div class="col-md-12 table-responsive">

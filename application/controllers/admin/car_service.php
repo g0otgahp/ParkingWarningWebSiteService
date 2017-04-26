@@ -32,9 +32,19 @@ class car_service extends REST_Controller
   function find_models_post()
   {
     $input = $this->post();
-    $models = $this->carmodel->find_models_select($input['car_brand_id']);
+    $models = $this->carmodel->find_models_select($input);
     $data = array(
       'models' => $models,
+    );
+    $this->response($data, 200); // 200 being the HTTP response code
+  }
+
+  function find_year_post()
+  {
+    $input = $this->post();
+    $year = $this->carmodel->find_year_select($input['car_brand_id']);
+    $data = array(
+      'year' => $year,
     );
     $this->response($data, 200); // 200 being the HTTP response code
   }
@@ -54,7 +64,7 @@ class car_service extends REST_Controller
   		      'car' => $car,
   		     	) , 200); // 200 being the HTTP response code
   	}
-    
+
     function find_car_brand_get()
     {
       $car = $this->carmodel->all_brand_select();

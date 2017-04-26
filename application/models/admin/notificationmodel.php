@@ -15,7 +15,8 @@ class notificationmodel extends CI_Model {
 	public function notification_all()
 	{
 
-		$query = $this->db->order_by('notification_date','DESC')
+		$query = $this->db
+		->order_by('notification_date','DESC')
 		->join('car','car.car_id = notification.car_id')
 		->join('user','user.user_id = notification.user_id')
 		->join('car_model','car_model.car_model_id = car.car_model_id')

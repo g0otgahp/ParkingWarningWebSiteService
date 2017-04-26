@@ -19,38 +19,35 @@ class carmodel extends CI_Model {
 
 	public function find_car($find)
 	{
-		if ($find['car_model_id'] ==0) {
-			$car_year = 0;
-		} else {
-			$year = $this->db
-			->where('car_model.car_model_id',$find['car_model_id'])
-			->get('car_model')
-			->result_array();
-			$car_year = $year[0]['car_brand_year_id'];
-		}
+			$data = array(
+				'car.car_brand_id' => $find['car_brand_id'],
+				'car_model_name' => $find['car_model_name'],
+				'car_year' => $find['car_brand_year_id'],
+				'car_color' => $find['car_color'],
+				'car_province' => $find['car_province'],
+				'car_register_date' => substr($find['ds'], 0 ,10),
+				'car_register_dateN' => substr($find['de'], 0 ,10),
+			);
 
-		$data = array(
-			'car.car_brand_id' => $find['car_brand_id'],
-			'car_model_id' => $find['car_model_id'],
-			'car_year' => $car_year,
-			'car_color' => $find['car_color'],
-			'car_province' => $find['car_province'],
-			'car_register_date' => substr($find['ds'], 0 ,10),
-			'car_register_dateN' => substr($find['de'], 0 ,10),
-		);
+
 		foreach ($data as $key => $value) {
 			if ($value != 0) {
 				if ($key == "car_register_date") {
 					$this->db->where('car_register_date >=', $value);
 				} elseif ($key == "car_register_dateN") {
 					$this->db->where('car_register_date <=', $value);
-				} elseif ($key == "car_model_id") {
-					$this->db->where('car.car_model_id' , $value);
 				} else {
 					$this->db->where($key , $value);
 				}
 			}
 		}
+
+		if ($data['car_model_name'] !='') {
+			if ($data['car_model_name'] != 0) {
+				$this->db->where('car_model_name', $data['car_model_name']);
+			}
+		}
+
 		$this->db->order_by('car_id','ASC');
 		$this->db->join('user','user.user_id = car.car_user_id');
 		$this->db->join('car_model','car_model.car_model_id = car.car_model_id');
@@ -88,27 +85,31 @@ class carmodel extends CI_Model {
 		return $data;
 	}
 
-	public function find_models_select($car_brand_id)
+	public function find_models_select($input)
+	{
+		if ($input['car_brand_year_id'] == 0) {
+			$models = $this->db
+			->select('car_model_name')
+			->distinct('')
+			->where('car_brand_year.car_brand_id',$input['car_brand_id'])
+			->join('car_model','car_brand_year.car_brand_year_id = car_model.car_brand_year_id')
+			->get('car_brand_year')
+			->result_array();
+		} else {
+			$models = $this->db
+			->where('car_brand_year_id', $input['car_brand_year_id'])
+			->get('car_model')->result_array();
+		}
+		return $models;
+	}
+
+	public function find_year_select($car_brand_id)
 	{
 		$data = $this->db
 		->where('car_brand_year.car_brand_id', $car_brand_id)
 		->order_by('car_brand_year', 'ASC')
 		->get('car_brand_year')->result_array();
-		// print_r($data);
-		$models = array();
-		foreach ($data as $item) {
-			$query = $this->db
-			->where('car_model.car_brand_year_id', $item['car_brand_year_id'])
-			->join('car_brand_year','car_brand_year.car_brand_year_id = car_model.car_brand_year_id')
-			->order_by('car_model.car_model_name', 'ASC')
-			->order_by('car_model.car_brand_year_id', 'DESC')
-			->get('car_model')->result_array();
-			foreach ($query as $row) {
-				array_push($models, $row);
-			}
-		}
-		$models = json_decode(json_encode($models));
-		return $models;
+		return $data;
 	}
 
 	public function select_car($mid,$cid)
@@ -248,40 +249,36 @@ class carmodel extends CI_Model {
 
 	public function find_news_car($find)
 	{
-		//หาปีของโมเดล
-		if ($find['car_model_id'] ==0) {
-			$car_year = 0;
-		} else {
-			$year = $this->db
-			->where('car_model.car_model_id',$find['car_model_id'])
-			->get('car_model')
-			->result_array();
-			$car_year = $year[0]['car_brand_year_id'];
-		}
 
 		//ค้นหารถตามฟิลเตอร์
 		$data = array(
 			'car.car_brand_id' => $find['car_brand_id'],
-			'car_model_id' => $find['car_model_id'],
-			'car_year' => $car_year,
+			'car_model_name' => $find['car_model_name'],
+			'car_year' => $find['car_brand_year_id'],
 			'car_color' => $find['car_color'],
 			'car_province' => $find['car_province'],
 			'car_register_date' => substr($find['ds'], 0 ,10),
 			'car_register_dateN' => substr($find['de'], 0 ,10),
 		);
+
 		foreach ($data as $key => $value) {
 			if ($value != 0) {
 				if ($key == "car_register_date") {
 					$this->db->where('car_register_date >=', $value);
 				} elseif ($key == "car_register_dateN") {
 					$this->db->where('car_register_date <=', $value);
-				} elseif ($key == "car_model_id") {
-					$this->db->where('car.car_model_id' , $value);
 				} else {
 					$this->db->where($key , $value);
 				}
 			}
 		}
+
+		if ($data['car_model_name'] !='') {
+			if ($data['car_model_name'] != 0) {
+				$this->db->where('car_model_name', $data['car_model_name']);
+			}
+		}
+
 		$this->db->order_by('car_id','ASC');
 		$this->db->join('user','user.user_id = car.car_user_id');
 		$this->db->join('car_model','car_model.car_model_id = car.car_model_id');
