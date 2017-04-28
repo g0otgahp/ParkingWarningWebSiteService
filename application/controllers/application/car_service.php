@@ -54,6 +54,8 @@ class car_service extends REST_Controller
   function addMyCar_post()
   {
     $data = $this->post();
+    $dt = new DateTime();
+    $data['car_register_date'] = $dt->format('Y-m-d');
     $myCar = $this->carmodelapp->addMyCar($data);
     $this->response($myCar, 200); // 200 being the HTTP response code
   }
@@ -88,6 +90,51 @@ class car_service extends REST_Controller
     $this->response($data, 200); // 200 being the HTTP response code
   }
 
+  function carSelectWarning_post()
+  {
+    $input = $this->post();
+    $data = $this->carmodelapp->carSelectWarning($input);
+    $this->response($data, 200); // 200 being the HTTP response code
+  }
+
+  function carUpdateWarning_post()
+  {
+    $input = $this->post();
+
+    $dt = new DateTime();
+    $input['notification_date_active'] = $dt->format('Y-m-d H:i:s');
+    $input['notification_status'] = 1;
+
+    $myWarning = $this->carmodelapp->carSelectMyWarning($input);
+
+    $myWarning = json_decode(json_encode($myWarning), True);
+
+    $uqery['car_id'] = $myWarning[0]['car_id'];
+
+    $myCar = $this->carmodelapp->carDetail($uqery);
+
+    $myCar = json_decode(json_encode($myCar), True);
+
+    $dataUser['user_id'] = $myWarning[0]['user_id_send'];
+
+    $myUser = $this->usermodelapp->selectUser($dataUser);
+
+    $myUser = json_decode(json_encode($myUser), True);
+
+    $data = $this->carmodelapp->carUpdateWarning($input);
+
+    $newTime = new DateTime($input['notification_date_correct']);
+
+    $myNotificationList[0]['warning_list_name'] = $myCar[0]['car_license_plate'].' ระยะเวลาในการแก้ไข '.$newTime->format('H').' ชั่วโมง '.$newTime->format('i').' นาที';
+
+    $sound='';
+
+    $this->sendNotification($myUser,$sound,$myNotificationList);
+
+    $this->response($data, 200); // 200 being the HTTP response code
+  }
+
+
 
   function carAddWarning_post()
   {
@@ -96,22 +143,23 @@ class car_service extends REST_Controller
     $data['notification_date'] = $dt->format('Y-m-d H:i:s');
 
     $myUser = $this->usermodelapp->selectUser($data);
+    $myUser = json_decode(json_encode($myUser), True);
 
     $myNotificationList = $this->carmodelapp->carSelectWarning($data);
-
-    // print_r($myUser);
-    // print_r(json_decode(json_encode($myUser)));
+    $myNotificationList = json_decode(json_encode($myNotificationList), True);
 
     unset($data['warning_list_name']);
 
     $myAlert = $this->carmodelapp->carAddWarning($data);
 
-    $this->sendNotification($myUser,$data,$myNotificationList);
+    $sound='parkingwarning';
+
+    $this->sendNotification($myUser,$sound,$myNotificationList);
 
     $this->response($myAlert, 200); // 200 being the HTTP response code
   }
 
-  function sendNotification($myUser,$data,$myNotificationList){
+  function sendNotification($myUser,$sound,$myNotificationList){
 
     $this->load->library('curl');
     $API_URL = "https://onesignal.com/api/v1/notifications";
@@ -119,16 +167,20 @@ class car_service extends REST_Controller
     $API_KEY = 'NjdiODRiNDktZTI5OS00MTM3LTlmOGItN2ZlNjU4MjIzZDMy';
     $linkLogo = base_url('upload/images/notification/notification_icon.png');
     $content = array(
-          "en" => $myNotificationList[0]->warning_list_name);
+          "en" => $myNotificationList[0]['warning_list_name']);
     $fields = array(
     			'app_id' => "6ac42896-75e0-44a6-800e-18ace3d1ffde",
           // 'alert' => "Testtest has requested to be your friend.",
-    			'include_player_ids' => array($myUser[0]->user_device_id),
+    			'include_player_ids' => array($myUser[0]['user_device_id']),
     			// 'data' => array("foo" => "bar"),
     			'ios_badgeType' => 'Increase',
     			'ios_badgeCount' => 1,
           'ios_sound' => "parkingwarning.wav",
-          'android_sound' => "parkingwarning",
+          'android_sound' => $sound,
+          'groupKey' =>1,
+          'groupMessage'=>1,
+          'groupedNotifications'=>1,
+          // 'android_sound' => "parkingwarning",
           // 'small_icon' => "ic_stat_logo",
           // 'large_icon' => "ic_stat_logo",
           'large_icon' => $linkLogo,
@@ -186,7 +238,33 @@ class car_service extends REST_Controller
   function carDisable_post()
   {
     $input = $this->post();
-    $data = $this->carmodelapp->carDisable($input);
+    $data = $this->carmodelapp->carUpdate($input);
     $this->response($data, 200); // 200 being the HTTP response code
   }
+
+  function carUpdate_post()
+  {
+    $input = $this->post();
+
+    $dataCar = $this->carmodelapp->carDetail($input);
+
+    $dataCar = json_decode(json_encode($dataCar), True);
+
+    if(isset($input['car_pic_front'])){
+      unlink('upload/images/cars/'.$dataCar[0]['car_pic_front']);
+    }
+    if(isset($input['car_pic_back'])){
+      unlink('upload/images/cars/'.$dataCar[0]['car_pic_back']);
+    }
+    if(isset($input['car_pic_left'])){
+      unlink('upload/images/cars/'.$dataCar[0]['car_pic_left']);
+    }
+    if(isset($input['car_pic_right'])){
+      unlink('upload/images/cars/'.$dataCar[0]['car_pic_right']);
+    }
+
+    $data = $this->carmodelapp->carUpdate($input);
+    $this->response($data, 200); // 200 being the HTTP response code
+  }
+
 }

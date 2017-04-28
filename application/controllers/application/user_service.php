@@ -184,8 +184,18 @@ function uploadImage_post(){
 function userUpdatePhoto_post()
 {
   $input = $this->post();
+
+  $userPic = $this->usermodelapp->selectUser($input);
+
+  $userPic = json_decode(json_encode($userPic), True);
+
+  unlink('upload/images/users/'.$userPic[0]['user_photo']);
+
+  print_r($userPic['user_photo']);
+
   $id = $input['user_id'];
   unset($input['user_id']);
+
   $user = $this->usermodelapp->updateUser($id,$input);
   // print_r($user);
   $this->response($user, 200); // 200 being the HTTP response code

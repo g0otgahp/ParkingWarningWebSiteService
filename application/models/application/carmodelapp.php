@@ -43,6 +43,7 @@ class carmodelapp extends CI_Model {
 		return $data;
 	}
 
+
 	public function carSelectWarning($input)
 	{
 		$data = $this->db
@@ -53,11 +54,29 @@ class carmodelapp extends CI_Model {
 		return $data;
 	}
 
+	public function carUpdateWarning($input){
+		$id = $input['notification_id'];
+		unset($input['notification_id']);
+		$this->db
+		->where('notification_id', $id)
+		->update('notification',$input);
+	}
+
+
 	public function carMyWarning($input)
 	{
 		$data = $this->db
 		->where('user_id',$input['user_id'])
 		->order_by('notification_date','DESC')
+		->get('notification')
+		->result();
+		return $data;
+	}
+
+	public function carSelectMyWarning($input)
+	{
+		$data = $this->db
+		->where('notification_id',$input['notification_id'])
 		->get('notification')
 		->result();
 		return $data;
@@ -120,7 +139,7 @@ class carmodelapp extends CI_Model {
 	public function carProvince()
 	{
 		$data = $this->db
-		// ->order_by('province_name','ASC')
+		->order_by('province_name','ASC')
 		->get('province')
 		->result();
 		return $data;
@@ -143,7 +162,7 @@ class carmodelapp extends CI_Model {
 		return $data;
 	}
 
-	public function carDisable($input){
+	public function carUpdate($input){
 		$id = $input['car_id'];
 		unset($input['car_id']);
 		$this->db
