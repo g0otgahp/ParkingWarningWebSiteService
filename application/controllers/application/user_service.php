@@ -141,7 +141,7 @@ function sendMail($input,$newpass,$type){
     $this->email->message('สวัสดีค่ะคุณ '.$input['user_fullname'].'<br><br><br>ตามที่คุณแจ้ง "ขอรหัสผ่านใหม่"<br>รหัสผ่านใหม่ของคุณคือ : '.$newpass.' <br><br><br>ขอบคุณที่ใช้บริการ ParkingWarning <br>ทีมงาน ParkingWarning');
   }else if(strcmp($type,"activeUser")==0){
     $this->email->subject('Active User ParkingWarning');
-    $this->email->message('สวัสดีค่ะคุณ '.$input['user_fullname'].'<br><br><br>กรุณากคลิกลิงค์ยืนยันตัวตนด้านล่างเพื่อนทำการยืนยันการสมัครสมาชิก<br><a href="'.site_url().'application/user_service/activeUser/'.$input['user_active_code'].'">ยืนยันตัวตน</a> <br><br><br>ขอบคุณที่ใช้บริการ ParkingWarning <br>ทีมงาน ParkingWarning');
+    $this->email->message('สวัสดีค่ะคุณ '.$input['user_fullname'].'<br><br><br>กรุณากคลิกลิงค์ยืนยันตัวตนด้านล่างเพื่อนทำการยืนยันการสมัครสมาชิก<br><br><a href="'.site_url().'application/user_service/activeUser/'.$input['user_active_code'].'">'site_url().'application/user_service/activeUser/'.$input['user_active_code']'</a> <br><br><br>ขอบคุณที่ใช้บริการ ParkingWarning <br>ทีมงาน ParkingWarning');
   }
 
   $this->email->send();
