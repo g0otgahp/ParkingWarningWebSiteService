@@ -172,7 +172,7 @@ class car_service extends REST_Controller
     			'app_id' => "6ac42896-75e0-44a6-800e-18ace3d1ffde",
           // 'alert' => "Testtest has requested to be your friend.",
     			'include_player_ids' => array($myUser[0]['user_device_id']),
-    			// 'data' => array("foo" => "bar"),
+    			'data' => array("foo" => "bar","vibrat",1),
     			'ios_badgeType' => 'Increase',
     			'ios_badgeCount' => 1,
           'ios_sound' => "parkingwarning.wav",

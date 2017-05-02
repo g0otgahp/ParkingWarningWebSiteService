@@ -67,6 +67,11 @@ class carmodelapp extends CI_Model {
 	{
 		$data = $this->db
 		->where('user_id',$input['user_id'])
+		->join('warning_list','warning_list.warning_list_id = notification.warning_list_id','left')
+		->join('car','car.car_id = notification.car_id','left')
+		->join('car_brand','car_brand.car_brand_id = car.car_brand_id','left')
+	  ->join('car_model','car_model.car_model_id = car.car_model_id','left')
+		->join('car_brand_year','car_brand_year.car_brand_year_id = car.car_year','left')
 		->order_by('notification_date','DESC')
 		->get('notification')
 		->result();
