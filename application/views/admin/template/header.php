@@ -17,15 +17,7 @@
   <link rel="stylesheet" href="<?php echo base_url('assets\datatables\skin\bootstrap\css\dataTables.bootstrap.min.css')?>" media="all">
   <link rel="stylesheet" href="<?php echo base_url('assets\material-dashboard\assets\css\material-dashboard.css')?>" media="all">
 
-  <!-- <link rel="stylesheet" href="<?php echo base_url('assets\material-dashboard\assets\css\demo.css')?>" media="all"> -->
-
   <link rel="stylesheet" href="<?php echo base_url('assets\ui-select-master\dist\select.min.css')?>" media="all">
-  <!-- <link rel="stylesheet" href="<?php echo base_url('assets\bootstrap-material-design-master\dist\css\ripples.min.css')?>" media="all"> -->
-  <!-- <link rel="stylesheet" href="<?php echo base_url('assets\bootstrap-material-design-master\dist\css\bootstrap-material-design.min.css')?>" media="all"> -->
-  <!-- <link rel="stylesheet" href="<?php echo base_url('assets\datatables\media\css\dataTables.bootstrap.min.css')?>" media="all"> -->
-
-  <!-- <link rel="stylesheet" href="<?php echo base_url('assets\angular-datatables\dist\css\angular-datatables.min.css')?>" media="all"> -->
-  <!-- <link rel="stylesheet" href="<?php echo base_url('assets\angular-datatables\dist\plugins\bootstrap\datatables.bootstrap.min.css')?>" media="all"> -->
 
   <link rel="stylesheet" href="<?php echo base_url('assets\bootstrap-material-datetimepicker\css\bootstrap-material-datetimepicker.css')?>" media="all">
   <link rel="stylesheet" href="<?php echo base_url('assets\custom\css\load-page.css')?>" media="all">
@@ -56,7 +48,6 @@
   var SITE_URL = "<?php echo site_url(); ?>";
   var BASE_URL = "<?php echo base_url(); ?>";
   </script>
-
 
 </head>
 

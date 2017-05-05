@@ -8,7 +8,7 @@ class newsmodelapp extends CI_Model {
 		$data = $this->db
 		->where('user_id',$id['user_id'])
 		->order_by('news_user.news_user_date','DESC')
-		->join('news','news.news_id = news_user.news_user_id')
+		->join('news','news.news_id = news_user.news_id')
 		->get('news_user')
 		->result();
 		return $data;

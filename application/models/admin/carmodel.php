@@ -29,7 +29,6 @@ class carmodel extends CI_Model {
 				'car_register_dateN' => substr($find['de'], 0 ,10),
 			);
 
-
 		foreach ($data as $key => $value) {
 			if ($value != 0) {
 				if ($key == "car_register_date") {
@@ -198,7 +197,6 @@ class carmodel extends CI_Model {
 		->result();
 		return $data;
 	}
-
 
 	public function save_car_model($input)
 	{
