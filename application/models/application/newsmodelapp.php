@@ -18,7 +18,7 @@ class newsmodelapp extends CI_Model {
 	{
 		$data = $this->db
 		->where('news_user_id',$id['news_user_id'])
-		->join('news','news.news_id = news_user.news_user_id')
+		->join('news','news.news_id = news_user.news_id')
 		->get('news_user')
 		->result();
 		return $data;
