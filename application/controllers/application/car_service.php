@@ -125,7 +125,7 @@ class car_service extends REST_Controller
 
     $newTime = new DateTime($input['notification_date_correct']);
 
-    $myNotificationList[0]['warning_list_name'] = $myCar[0]['car_license_plate'].' ระยะเวลาในการแก้ไข '.$newTime->format('H').' ชั่วโมง '.$newTime->format('i').' นาที';
+    $myNotificationList[0]['warning_list_name'] = $myCar[0]['car_license_plate'].' ระยะเวลาในการแก้ไข '.$newTime->format('H').' ชั่วโมง '.$newTime->format('i').' นาที'.$newTime->format('s').' วินาที';
 
     $sound='';
 

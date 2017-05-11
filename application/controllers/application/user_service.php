@@ -137,11 +137,11 @@ function sendMail($input,$newpass,$type){
   // $this->email->cc($input['user_email']);
   // $this->email->bcc($input['user_email']);
   if(strcmp($type,"forgotPassword")==0){
-    $this->email->subject('Forgot Password่ ParkingWarning');
+    $this->email->subject('Forgot Password ParkingWarning');
     $this->email->message('สวัสดีค่ะคุณ '.$input['user_fullname'].'<br><br><br>ตามที่คุณแจ้ง "ขอรหัสผ่านใหม่"<br>รหัสผ่านใหม่ของคุณคือ : '.$newpass.' <br><br><br>ขอบคุณที่ใช้บริการ ParkingWarning <br>ทีมงาน ParkingWarning');
   }else if(strcmp($type,"activeUser")==0){
     $this->email->subject('Active User ParkingWarning');
-    $this->email->message('สวัสดีค่ะคุณ '.$input['user_fullname'].'<br><br><br>กรุณากคลิกลิงค์ยืนยันตัวตนด้านล่างเพื่อนทำการยืนยันการสมัครสมาชิก<br><br><a href="'.site_url().'application/user_service/activeUser/'.$input['user_active_code'].'">'site_url().'application/user_service/activeUser/'.$input['user_active_code']'</a> <br><br><br>ขอบคุณที่ใช้บริการ ParkingWarning <br>ทีมงาน ParkingWarning');
+    $this->email->message('สวัสดีค่ะคุณ '.$input['user_fullname'].'<br><br><br>กรุณากคลิกลิงค์ยืนยันตัวตนด้านล่างเพื่อนทำการยืนยันการสมัครสมาชิก<br><br><a href="'.site_url().'application/user_service/activeUser/'.$input['user_active_code'].'">'.site_url().'application/user_service/activeUser/'.$input['user_active_code'].'</a> <br><br><br>ขอบคุณที่ใช้บริการ ParkingWarning <br>ทีมงาน ParkingWarning');
   }
 
   $this->email->send();
@@ -152,11 +152,11 @@ function activeUser_get(){
   $input['user_active_code'] = $this->uri->segment(4);
   $query = $this->usermodelapp->activeUser($input);
   if($query>0){
-    $message = "ยืนยันตัวตนสำเร็จ ".$input['user_active_code'];
-    echo "<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'><script type='text/javascript'>alert('$message');</script>";
+    $message = "ยืนยันตัวตนสำเร็จ<br>รหัสยืนยันตัวตนของท่านคือ ".$input['user_active_code'];
+    echo "<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'><script type='text/javascript'>alert('$message');window.close();</script>";
   }else{
-    $message = "เกิดข้อผิดพลาดในการยืนยันตัวตน ".$input['user_active_code'];
-    echo "<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'><script type='text/javascript'>alert('$message');</script>";
+    $message = "เกิดข้อผิดพลาดในการยืนยันตัวตน รหัสยืนยันตัวตน ".$input['user_active_code']." ผิดพลาด";
+    echo "<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'><script type='text/javascript'>alert('$message');window.close();</script>";
   }
 }
 
