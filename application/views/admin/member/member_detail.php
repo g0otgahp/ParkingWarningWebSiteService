@@ -1,4 +1,14 @@
 <div class="row">
+	<span ng-if="!car_select.car_id" >
+
+	<div class="col-md-8" align="center">
+		<div class="card card-nav-tabs">
+				<h4 class="title">ยังไม่ได้ลงทะเบียนรถยนต์</h4>
+		</div>
+	</div>
+	</span>
+
+	<span ng-if="car_select.car_id" >
 	<div class="col-md-8">
 		<div class="card card-nav-tabs">
 			<div class="card-header" data-background-color="orange">
@@ -40,6 +50,8 @@
 				</div>
 
 			</div>
+		</span>
+
 			<div class="col-md-4">
 				<div class="card card-profile">
 					<div class="card-avatar">
@@ -68,6 +80,8 @@
 						</div>
 					</div>
 				</div>
+
+				<span ng-if="member_car" >
 				<div class="card">
 
 					<div class="card-content table-responsive">
@@ -91,5 +105,6 @@
 						</table>
 					</div>
 				</div>
+			</span>
 			</div>
 		</div>

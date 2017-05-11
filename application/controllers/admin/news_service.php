@@ -33,7 +33,11 @@ class news_service extends REST_Controller
     $input = $this->post();
     if ($input['news_id']!='undefined') {
       $news = $this->newsmodel->news_by_id($input['news_id']);
-      $this->response(array('news' => $news) , 200); // 200 being the HTTP response code
+      $user = $this->newsmodel->user_by_promotion($input['news_id']);
+      $this->response(array(
+        'news' => $news,
+        'user' => $user,
+      ) , 200); // 200 being the HTTP response code
     }
     $this->response(array('news' => 0) , 200); // 200 being the HTTP response code
   }

@@ -23,3 +23,41 @@
   </div>
 </div>
 </div>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-nav-tabs">
+      <div class="card-header" data-background-color="">
+        <h3 class="title">รายชื่อผู้ขอรับสิทธิโปรโมชั่น ({{user.length}}/{{news.news_value}})</h3>
+        </div>
+        <div class="card-content">
+          <div class="row">
+            <div class="col-md-12">
+              <table datatable="ng" dt-options="dtOptions" dt-instance="dtInstance"  class="table table-striped table-hover ">
+                <thead>
+                  <tr class="info">
+                    <th>ลำดับ</th>
+                    <th class="uk-text-nowrap">ชื่อ</th>
+                    <th>ตัวเลือก</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="u in user">
+                    <td>{{$index+1}}</td>
+                    <td>{{u.user_fullname}}</td>
+                    <td align="center">
+                      <button ng-click="member_detail(row.user_id,0)" type="button" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="รายละเอียด">
+                        <i class="material-icons">details</i>
+                        รายละเอียด
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
