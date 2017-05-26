@@ -16,11 +16,10 @@ class newsmodelapp extends CI_Model {
 
 	public function myNewsDetail($id)
 	{
-		$data = $this->db
-		->where('news_user_id',$id['news_user_id'])
-		->join('news','news.news_id = news_user.news_id')
-		->get('news_user')
-		->result();
+		$this->db->select('news.news_id,news_name,news_detail,news_date_end,news_date_add,news_value,news_phone,news_line,news_pic,news_status, (select count(news_user.news_id) from news_user where news_user.news_id = news.news_id and news_user_status = 1) as news_count');
+		$this->db->from('news_user');
+		$this->db->join('news', 'news.news_id = news_user.news_id');
+		$data = $this->db->get()->result();
 		return $data;
 	}
 

@@ -34,17 +34,20 @@ class news_service extends REST_Controller
   function myNewsDetail_post()
   {
     $id = $this->post();
+    // console.log('$id = '+$id);
 		$news = $this->newsmodelapp->myNewsDetail($id);
-    $array = (array)$news;
-
-    if($news){
-      $index = 0;
-      foreach ($news as $row) {
-        $countNews = $this->newsmodelapp->countNewsUser($row['news_id']);
-        $news[$index]->news_count = $countNews;
-        $index++;
-      }
-    }
+    // console.log('$news = '+$news);
+    // $array = (array)$news;
+    // print_r($news);
+    // if($news){
+    //   $index = 0;
+    //   foreach ($news as $row) {
+    //     $countNews = $this->newsmodelapp->countNewsUser($row['news_id']);
+    //     $news[$index]->news_count = $countNews;
+    //     $index++;
+    //   }
+    // }
+    // print_r('2 = '+$news);
     $this->response($news, 200); // 200 being the HTTP response code
   }
 
