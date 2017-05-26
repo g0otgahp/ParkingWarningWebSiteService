@@ -62,7 +62,6 @@ class carmodelapp extends CI_Model {
 		->update('notification',$input);
 	}
 
-
 	public function carMyWarning($input)
 	{
 		$data = $this->db

@@ -23,13 +23,6 @@ class news_service extends REST_Controller
 		$this->load->helper('url');
 }
 
-  // function newslist_post()
-  // {
-  //   $id = $this->post();
-  //   $news = $this->newsmodelapp->allpromotion($id);
-  //   $this->response($news, 200); // 200 being the HTTP response code
-  // }
-
   function myNews_post()
   {
     $id = $this->post();
@@ -47,7 +40,7 @@ class news_service extends REST_Controller
     if($news){
       $index = 0;
       foreach ($news as $row) {
-        $countNews = $this->newsmodelapp->countNewsUser(1);
+        $countNews = $this->newsmodelapp->countNewsUser($row['news_id']);
         $news[$index]->news_count = $countNews;
         $index++;
       }
@@ -60,7 +53,5 @@ class news_service extends REST_Controller
   {
     $data = $this->post();
     $news = $this->newsmodelapp->activeNews($data);
-    // $this->response($myPromotion, 200); // 200 being the HTTP response code
-    // $this->response($news, 200);
   }
 }
