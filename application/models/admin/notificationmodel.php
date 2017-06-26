@@ -28,11 +28,14 @@ class notificationmodel extends CI_Model {
 
 		$i = 0;
 		foreach ($query as $row) {
-			$user_send = $this->db->where('user_id',$row['user_id_send'])
+		
+			$user_send = $this->db->where('user_id', $row['user_id_send'])
 			->get('user')->result_array();
-
-			$query[$i]['user_fullname_send'] = $user_send[0]['user_fullname'];
+			if(count($user_send)>0){
+				$query[$i]['user_fullname_send'] = $user_send[0]['user_fullname'];
 			$i++;
+			}
+			
 		}
 
 		return $query;

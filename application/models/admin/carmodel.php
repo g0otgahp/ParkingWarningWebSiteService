@@ -25,19 +25,9 @@ class carmodel extends CI_Model {
 				'car_year' => $find['car_brand_year_id'],
 				'car_color' => $find['car_color'],
 				'car_province' => $find['car_province'],
+				'car_register_date' => substr($find['ds'], 0 ,10),
+				'car_register_dateN' => substr($find['de'], 0 ,10),
 			);
-
-			if ($find['ds'] == 0) {
-				$data['car_register_date'] = $find['ds'];
-			} else {
-				$data['car_register_date'] = substr($find['ds'], 0 ,10);
-			}
-
-			if ($find['de'] == 0) {
-				$data['car_register_dateN'] = $find['de'];
-			} else {
-				$data['car_register_dateN'] = substr($find['de'], 0 ,10);
-			}
 
 		foreach ($data as $key => $value) {
 			if ($value != 0) {
@@ -265,19 +255,9 @@ class carmodel extends CI_Model {
 			'car_year' => $find['car_brand_year_id'],
 			'car_color' => $find['car_color'],
 			'car_province' => $find['car_province'],
+			'car_register_date' => substr($find['ds'], 0 ,10),
+			'car_register_dateN' => substr($find['de'], 0 ,10),
 		);
-
-		if ($find['ds'] == 0) {
-			$data['car_register_date'] = $find['ds'];
-		} else {
-			$data['car_register_date'] = substr($find['ds'], 0 ,10);
-		}
-
-		if ($find['de'] == 0) {
-			$data['car_register_dateN'] = $find['de'];
-		} else {
-			$data['car_register_dateN'] = substr($find['de'], 0 ,10);
-		}
 
 		foreach ($data as $key => $value) {
 			if ($value != 0) {
