@@ -8,8 +8,8 @@ app.controller('NewsSendController', function ($scope, $http, $location, DTOptio
 		$scope.dt_car = 0;
     $scope.data_list = [];
     $scope.date = {};
-    $scope.date.ds = moment(new Date()).format()
-    $scope.date.de = moment(new Date()).format()
+    // $scope.date.ds = moment(new Date()).format()
+    // $scope.date.de = moment(new Date()).format()
 		$scope.news_id = $location.search().nid;
   }, function(error) {
     console.log(error);
@@ -40,6 +40,19 @@ $scope.selectCarYears = function(data) {
 };
 
 $scope.findcar = function() {
+
+			if ($scope.date.ds === undefined) {
+				var ds = 0;
+			} else {
+				var ds = moment($scope.date.ds).format();
+			}
+
+			if ($scope.date.de === undefined) {
+				var de = 0;
+			} else {
+				var de = moment($scope.date.de).format();
+			}
+
   var data = {
 		news_id : $scope.news_id,
 		car_brand_id : $scope.car_brand_id,
@@ -47,10 +60,11 @@ $scope.findcar = function() {
     car_brand_year_id : $scope.car_brand_year_id,
     car_color : $scope.car_color_id,
     car_province : $scope.province_id,
-    ds: moment($scope.date.ds).format(),
-    de: moment($scope.date.de).format(),
+		ds: ds,
+		de: de,
 		num: $scope.car_num
   }
+
   $http.post(SITE_URL + 'admin/car_service/find_news_car', data).then( function (response) {
     appNotify(response.data.alert.message, response.data.alert.type);
     $scope.dt_car = response.data.car;

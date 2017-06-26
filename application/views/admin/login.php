@@ -37,7 +37,7 @@
   }
   .login {
     position: absolute;
-    top: 50%;
+    top: 35%;
     left: 50%;
     margin: -150px 0 0 -150px;
     width:300px;
@@ -72,8 +72,8 @@
 <body>
   <?php echo form_open('admin/homepage/CheckLogin'); ?>
   <div class="login">
-    <!-- <h1>Login</h1> -->
     <center><img src="<?php echo base_url('upload\logo\logo.png');?>" height="200px"></center>
+    <!-- <h1>Login</h1> -->
     <form method="post">
       <input name="admin_username" type="text" required placeholder="กรอก Username">
       <input name="admin_password" type="password" required placeholder="กรอกรหัสผผ่าน">

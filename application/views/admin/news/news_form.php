@@ -18,6 +18,10 @@
                 <input required type="text" class="form-control input-lg" ng-model="news.news_name">
               </div>
               <div class="form-group">
+                <label for="s1">ติดต่อ / Line</label>
+                <input type="text" class="form-control input-lg" ng-model="news.news_line">
+              </div>
+              <div class="form-group">
                 <label for="s1">จำนวนสิทธิ (กรณีเป็นโปรโมชั่น)</label>
                 <input type="text" class="form-control input-lg" ng-model="news.news_value">
               </div>

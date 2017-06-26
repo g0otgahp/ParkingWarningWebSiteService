@@ -16,7 +16,7 @@
 */
 // $config['base_url']	= 'http://www.parkingwarning.com/';
 // $config['base_url']	= 'http://192.168.0.106/ParkingWarningWebSiteService/';
-$config['base_url']	= 'http://192.168.0.118/ParkingWarningWebSiteService/';
+$config['base_url']	= 'http://localhost/ParkingWarningWebSiteService/';
 
 
 /*

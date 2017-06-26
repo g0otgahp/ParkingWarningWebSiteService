@@ -9,8 +9,6 @@ function($http, $scope, DTOptionsBuilder, DTColumnDefBuilder, $window) {
     $scope.dt_car = response.data.cars;
     $scope.data_list = [];
     $scope.date = {};
-    $scope.date.ds = moment(new Date()).format()
-    $scope.date.de = moment(new Date()).format()
   }, function(error) {
     console.log(error);
   }
@@ -67,14 +65,27 @@ $scope.member_detail = function(id,cid) {
 };
 
 $scope.findcar = function() {
+
+  			if ($scope.date.ds === undefined) {
+  				var ds = 0;
+  			} else {
+  				var ds = moment($scope.date.ds).format();
+  			}
+
+  			if ($scope.date.de === undefined) {
+  				var de = 0;
+  			} else {
+  				var de = moment($scope.date.de).format();
+  			}
+
   var data = {
     car_brand_id : $scope.car_brand_id,
     car_model_name : $scope.car_model_id,
     car_brand_year_id : $scope.car_brand_year_id,
     car_color : $scope.car_color_id,
     car_province : $scope.province_id,
-    ds: moment($scope.date.ds).format(),
-    de: moment($scope.date.de).format()
+    ds: ds,
+		de: de,
   }
   $http.post(SITE_URL + 'admin/car_service/find_car', data).then( function (response) {
     appNotify(response.data.alert.message, response.data.alert.type);
